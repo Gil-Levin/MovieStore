@@ -11,3 +11,111 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+nav {
+  display: flex;
+  padding: 10px;
+  justify-content: space-evenly;
+}
+
+.menu-item a {
+  text-decoration: none;
+}
+
+.movies-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.movie {
+  border: 1px solid;
+  width: 400px;
+  margin-bottom: 40px;
+  padding: 10px;
+  border-radius: 20px;
+  margin-right: 20px;
+  background: #292930;
+  color: white;
+}
+
+.overview {
+  height: 155px;
+  overflow: auto;
+  margin: 25px 0;
+}
+
+.edit-text> :first-child {
+  justify-content: space-between;
+  text-align: left;
+}
+
+.button {
+  padding: 5px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.delete-button {
+  background: red;
+  margin-top: 10px;
+}
+
+.add-button {
+  background-color: blue;
+  margin-bottom: 20px;
+}
+
+.filter-movies {
+  margin: 20px 0;
+}
+
+.filter-movies input {
+  margin-left: 5px;
+}
+
+.add-movie-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.add-movie-container button {
+  margin: 10px 0;
+  background-color: green;
+  border: 1px solid;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 0;
+}
+
+.add-movie-container textarea {
+  min-height: 75px;
+}
+
+.paragraph{
+  border: 1px solid;
+  margin-bottom: 40px;
+  padding: 10px;
+  border-radius: 20px;
+  margin-right: 100px;
+  margin-left: 100px;
+  background: #292930;
+  color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .movie {
+    margin-left: 20px;
+  }
+}
