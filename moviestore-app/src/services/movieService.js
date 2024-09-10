@@ -5,7 +5,7 @@ let movies = [
         "title": "Inception",
         "overview": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: 'inception', the implantation of another person's idea into a target's subconscious.",
         "rating": 8.4,
-        "imageUrl": "https://image.tmdb.org/t/p/w185/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+        "imageUrl": "https://image.tmdb.org/t/p/w185/vgnoBSVzWAV9sNQUORaDGvDp7wx.jpg",        
         "genre": "action"
     },
     {
@@ -169,3 +169,18 @@ export function getMovies() {
 export function setMovies(newMovies) {
     movies = newMovies;
 }
+
+import axios from 'axios';
+
+export function loadProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:7178/api/products'); // Fetch all products
+      const products = response.data.map((product) => ({
+        ...product,
+        isToggleOn: false, // Initialize toggle state for each product
+      }));
+      this.setState({ products });
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };

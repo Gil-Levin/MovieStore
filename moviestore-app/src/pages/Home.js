@@ -1,62 +1,58 @@
-import React, { Component } from 'react';
-import { getMovies } from '../services/movieService';
+import React, { useContext } from 'react';
+import MoviesContext from '../context/MoviesContext';
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.onSave = this.onSave.bind(this);
-  }
-  title = 'Home Page'
-  state = {
-    movies: null,
-  }
-  handleClick(id) {
-    const movie = this.state.movies.find((m) => m.id === id);
-    if (!!movie) {
-      movie.isToggleOn = !movie.isToggleOn;
-      this.setState(() => ({
-        movies: this.state.movies
-      }));
-    }
-  }
-  onSave($event, movieId, property) {
-    const movie = this.state.movies.find((m) => m.id === movieId);
-    movie[property] = $event;
-  }
-  onAccept = (text) => {
-    this.setState({ text })
-  }
-  componentDidMount() {
-    this.loadMovies();
-  }
-  loadMovies() {
-    const movies = getMovies().map((movie) => ({ ...movie, isToggleOn: false }));
-    this.setState(() => ({ movies }));
+const Home = () => {
+  const { movies, loading, setMovies } = useContext(MoviesContext);
+
+  const handleToggle = (productId) => {
+    const updatedMovies = movies.map((product) => {
+      if (product.productId === productId) { 
+        return { ...product, isToggleOn: !product.isToggleOn }; 
+      }
+      return product;
+    });
+    setMovies(updatedMovies);
+  };
+
+  if (loading) {
+    return <div>Loading movies...</div>;
   }
 
-  render() {
-    return (
-      <div>
-        <h1> {this.title} </h1>
-        <div className="movies-container">
-          {this.state.movies && this.state.movies.map((movie, index) => <div className="movie" key={index} onClick={() => { this.handleClick(movie.id) }}>
-            <div className="movie-url"><img src={movie.imageUrl} alt=''></img></div>
-            <div className="title">{movie.title}</div>
-            {!!movie.isToggleOn && <div className='movie-details' >
-              <div className="overview">{movie.overview}</div>
-              <div className="rating">Rating: {movie.rating}</div>
-              <div className="genre">Genre: {movie.genre}</div>
-            </div>}
-          </div>)
-          }</div>
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <div className="movies-container">
+        {movies.length > 0 ? (
+          movies.map((product, index) => (
+            <div
+              className="movie"
+              key={index}
+              onClick={() => handleToggle(product.productId)} 
+            >
+              <div className="movie-url">
+                {product.image && (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                  />
+                )}
+              </div>
+              <div className="title">{product.name}</div>
+              {!!product.isToggleOn && (
+                <div className="movie-details">
+                  <div className="overview">{product.description}</div>
+                  <div className="rating">Price: ${product.price}</div>
+                  <div className="genre">Category: {product.category}</div>
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <h1>No products to display</h1>
+        )}
       </div>
-    )
-  }
-}
-export default Home
+    </div>
+  );
+};
 
-
-
-
-
+export default Home;
