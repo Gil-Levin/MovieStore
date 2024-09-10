@@ -170,17 +170,17 @@ export function setMovies(newMovies) {
     movies = newMovies;
 }
 
-import axios from 'axios';
+// import axios from 'axios';
 
-export function loadProducts = async () => {
-    try {
-      const response = await axios.get('http://localhost:7178/api/products'); // Fetch all products
-      const products = response.data.map((product) => ({
-        ...product,
-        isToggleOn: false, // Initialize toggle state for each product
-      }));
-      this.setState({ products });
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
+// export function loadProducts = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:7178/api/products'); // Fetch all products
+//       const products = response.data.map((product) => ({
+//         ...product,
+//         isToggleOn: false, // Initialize toggle state for each product
+//       }));
+//       this.setState({ products });
+//     } catch (error) {
+//       console.error('Error fetching products:', error);
+//     }
+//   };
