@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "MovieStore_API/1.0.0": {
+      "MovieStore_api/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.4",
           "Microsoft.AspNetCore.Cors": "2.2.0",
@@ -19,7 +19,7 @@
           "Swashbuckle.AspNetCore.Filters": "8.0.1"
         },
         "runtime": {
-          "MovieStore_API.dll": {}
+          "MovieStore_api.dll": {}
         }
       },
       "Humanizer/2.14.1": {
@@ -2637,7 +2637,7 @@
     }
   },
   "libraries": {
-    "MovieStore_API/1.0.0": {
+    "MovieStore_api/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

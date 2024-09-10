@@ -34,23 +34,62 @@ namespace MovieStore_API.Controllers
             return await _context.Products.ToListAsync();
         }
 
-        [AllowAnonymous]
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
-        {
-            if (_context.Products == null)
-            {
-                return NotFound();
-            }
-            var product = await _context.Products.FindAsync(id);
+        // [AllowAnonymous]
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<Product>> GetProduct(int id)
+        // {
+        //   if (_context.Products == null)
+        //   {
+        //       return NotFound();
+        //   }
+        //     var product = await _context.Products.FindAsync(id);
 
-            if (product == null)
-            {
-                return NotFound();
-            }
+        //     if (product == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return product;
-        }
+        //     return product;
+        // }
+        
+[AllowAnonymous]
+[HttpGet("{id}")]
+public async Task<ActionResult<Product>> GetProduct(int id)
+{
+    if (_context.Products == null)
+    {
+        return NotFound();
+    }
+
+    var product = await _context.Products.FindAsync(id);
+
+    if (product == null)
+    {
+        return NotFound();
+    }
+
+    // Convert binary image data to Base64 string
+    string imageBase64 = product.Image != null
+        ? Convert.ToBase64String(product.Image)
+        : null;
+
+    // Return the product with the Base64 image
+    var productDto = new Product
+    {
+        ProductId = product.ProductId,
+        Name = product.Name,
+        Description = product.Description,
+        Price = product.Price,
+        Image = imageBase64, // Use the Base64 string for image
+        Category = product.Category
+    };
+
+    return Ok(productDto);
+}
+
+
+
+
 
         [AllowAnonymous]
         [HttpPut("{id}")]
@@ -120,5 +159,6 @@ namespace MovieStore_API.Controllers
         {
             return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
         }
+
     }
 }
