@@ -1,61 +1,60 @@
 .navbar {
-    background-color: #333;
-    color: white;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .navbar-container {
-    display: flex;
-    align-items: center;
-    max-width: 1200px;
-    width: 100%;
-    padding: 0 20px;
-  }
-  
-  .navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .navbar-item {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-link {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    padding: 5px 10px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .navbar-link:hover {
-    background-color: #575757;
-    border-radius: 3px;
-    color: #f1f1f1;
-  }
-  
-  .navbar-button {
-    background-color: #ff4d4d;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .navbar-button:hover {
-    background-color: #e60000;
-  }
-  
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 5px 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-link:hover {
+  background-color: #575757;
+  border-radius: 3px;
+  color: #f1f1f1;
+}
+
+.navbar-button {
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navbar-button:hover {
+  background-color: #e60000;
+}
