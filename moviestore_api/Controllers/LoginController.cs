@@ -24,6 +24,27 @@ namespace MovieStore_API.Controllers
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
+        //[AllowAnonymous]
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    // Find the user by email
+        //    var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
+        //    if (user == null || user.Password != loginDto.Password) // Password check should use a hashed method in production
+        //    {
+        //        return Unauthorized("Invalid email or password.");
+        //    }
+
+        //    // Generate JWT token
+        //    var token = GenerateJwtToken(user);
+        //    return Ok(new { token });
+        //}
+
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
@@ -34,7 +55,8 @@ namespace MovieStore_API.Controllers
             }
 
             // Find the user by email
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
+
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email && u.Password == loginDto.Password);
             if (user == null || user.Password != loginDto.Password) // Password check should use a hashed method in production
             {
                 return Unauthorized("Invalid email or password.");
@@ -42,8 +64,15 @@ namespace MovieStore_API.Controllers
 
             // Generate JWT token
             var token = GenerateJwtToken(user);
-            return Ok(new { token });
+
+            // Return the user object along with the token
+            return Ok(new
+            {
+                user,
+                token
+            });
         }
+
 
         private string GenerateJwtToken(User user)
         {

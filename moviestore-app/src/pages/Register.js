@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import '../css/Register.css';
+
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -22,7 +24,7 @@ function Register() {
         username,
         email,
         password,
-        profilePicture:"https://api.api-ninjas.com/v1/randomimage",
+        profilePicture:"https://placeimg.com/185/104/arch?param= ${Math.random()}",
         userType : "customer"
       });
   
@@ -31,7 +33,7 @@ function Register() {
     } catch (error) {
       console.error('Error during registration:', error);
       if (error.response) {
-        console.error('Server Response:', error.response.data); // Log server response data
+        console.error('Server Response:', error.response.data);
         alert(`Registration failed. Reason: ${JSON.stringify(error.response.data)}`);
       } else {
         alert('Registration failed. Please check the details and try again.');
@@ -71,22 +73,6 @@ function Register() {
             required
           />
         </div>
-        {/* <div>
-          <label>Profile Picture URL:</label>
-          <input
-            type="text"
-            value={profilePicture}
-            onChange={(e) => setProfilePicture(e.target.value)}
-          />
-        </div> */}
-        {/* <div>
-          <label>User Type:</label>
-          <input
-            type="text"
-            value={userType}
-            onChange={(e) => setUserType(e.target.value)}
-          />
-        </div> */}
         <button type="submit">Register</button>
       </form>
     </div>

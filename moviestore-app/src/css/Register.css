@@ -1,0 +1,58 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-aligns the content */
+    justify-content: center; /* Center-aligns vertically */
+    min-height: 100vh; /* Full viewport height */
+    background-color: #f4f4f4; /* Light gray background for consistency */
+    padding: 20px;
+  }
+  
+  .register-container h2 {
+    font-size: 2rem; /* Larger font size for the heading */
+    color: #333; /* Darker text color for visibility */
+    margin-bottom: 20px; /* Space below the heading */
+  }
+  
+  .register-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px; /* Limit the form width */
+    background-color: #fff; /* White background for the form */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .register-container form div {
+    margin-bottom: 15px; /* Space between form elements */
+  }
+  
+  .register-container form label {
+    display: block; /* Ensures the label takes a full line */
+    font-weight: bold; /* Bold labels */
+    margin-bottom: 5px; /* Space below the labels */
+  }
+  
+  .register-container form input {
+    width: 100%; /* Full width for input fields */
+    padding: 10px;
+    border: 1px solid #ddd; /* Light border for input fields */
+    border-radius: 4px; /* Rounded corners for input fields */
+  }
+  
+  .register-container form button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue background for the button */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .register-container form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  

@@ -1,0 +1,92 @@
+.home-page {
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .welcome-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #007bff, #0056b3);
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .welcome-title {
+    font-size: 3rem; 
+    margin-bottom: 10px;
+  }
+  
+  .welcome-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .welcome-description {
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .movies-section {
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  .movies-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .movie {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    padding: 15px;
+    width: 220px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .movie:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .movie-url img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    margin: 8px 0;
+    color: #333;
+  }
+  
+  .movie-details {
+    margin-top: 8px;
+    text-align: left;
+    color: #ffffff;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .overview, .price, .genre {
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+  }
+  
