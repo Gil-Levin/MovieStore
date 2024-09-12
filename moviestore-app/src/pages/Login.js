@@ -8,7 +8,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
-  const { login } = useContext(AuthContext); // Use login function from AuthContext
+  const { login } = useContext(AuthContext); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,15 +17,15 @@ function Login() {
       const { token, user } = response.data;
       
       if (token) {
-        localStorage.setItem('token', token); // Store token in localStorage
+        localStorage.setItem('token', token);
       }
       if (user) {
-        localStorage.setItem('user', JSON.stringify(user)); // Store user object in localStorage
+        localStorage.setItem('user', JSON.stringify(user));
       }
       
-      login(token); // Call login function to update AuthContext
+      login(token);
       console.log("Successful login!");
-      history.push('/'); // Redirect to the home page
+      history.push('/');
     } catch (error) {
       alert('Login failed. Please check your credentials.');
     }

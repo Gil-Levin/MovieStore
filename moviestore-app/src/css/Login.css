@@ -1,51 +1,51 @@
 .login-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center-aligns the content */
-    justify-content: center; /* Center-aligns vertically */
-    min-height: 100vh; /* Full viewport height */
-    background-color: #f4f4f4; /* Light gray background for consistency */
+    align-items: center;
+    justify-content: center; 
+    min-height: 100vh; 
+    background-color: #f4f4f4; 
     padding: 20px;
   }
   
   .login-container h2 {
-    font-size: 2rem; /* Larger font size for the heading */
-    color: #333; /* Darker text color for visibility */
-    margin-bottom: 20px; /* Space below the heading */
+    font-size: 2rem; 
+    color: #333; 
+    margin-bottom: 20px;
   }
   
   .login-container form {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 400px; /* Limit the form width */
-    background-color: #fff; /* White background for the form */
+    max-width: 400px; 
+    background-color: #fff; 
     padding: 20px;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   }
   
   .login-container form div {
-    margin-bottom: 15px; /* Space between form elements */
+    margin-bottom: 15px; 
   }
   
   .login-container form label {
-    display: block; /* Ensures the label takes a full line */
-    font-weight: bold; /* Bold labels */
-    margin-bottom: 5px; /* Space below the labels */
+    display: block; 
+    font-weight: bold;
+    margin-bottom: 5px;
   }
   
   .login-container form input {
-    width: 100%; /* Full width for input fields */
+    width: 100%;
     padding: 10px;
-    border: 1px solid #ddd; /* Light border for input fields */
-    border-radius: 4px; /* Rounded corners for input fields */
+    border: 1px solid #ddd; 
+    border-radius: 4px;
   }
   
   .login-container form button {
     padding: 10px 20px;
-    background-color: #007bff; /* Blue background for the button */
-    color: #fff; /* White text color */
+    background-color: #007bff; 
+    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -53,11 +53,11 @@
   }
   
   .login-container form button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #555e68;
   }
   
   .register-link {
-    margin-top: 20px; /* Space above the link */
+    margin-top: 20px;
     font-size: 0.9rem;
   }
   
