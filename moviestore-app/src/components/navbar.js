@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom'; // Import useHistory
+import { Link, useHistory } from 'react-router-dom';
 import AuthContext from '../context/authContext';
 import '../css/Navbar.css';
 
 const Navbar = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
-  const history = useHistory(); // Create history object
+  const history = useHistory();
   const userType = JSON.parse(localStorage.getItem('user'))?.userType || '';
 
   const handleLogout = () => {
-    logout(); // Call the logout function from AuthContext
-    history.push('/'); // Redirect to home page
+    logout();
+    history.push('/');
   };
 
   return (
