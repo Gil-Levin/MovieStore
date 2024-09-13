@@ -51,11 +51,11 @@ namespace MovieStore_API.Data
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ProfilePicture);
 
@@ -78,8 +78,8 @@ namespace MovieStore_API.Data
                 entity.HasKey(e => e.ProductId);
 
                 entity.Property(e => e.ProductId).IsRequired().ValueGeneratedOnAdd();
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
-                entity.Property(e => e.Description).IsRequired().HasMaxLength(255);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.Description).IsRequired().HasMaxLength(500);
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)").IsRequired();
                 entity.Property(e => e.Image).IsRequired();
                 entity.Property(e => e.Category).IsRequired().HasMaxLength(50);

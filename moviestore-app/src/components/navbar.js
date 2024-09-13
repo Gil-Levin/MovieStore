@@ -1,12 +1,17 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom'; // Import useHistory
 import AuthContext from '../context/authContext';
 import '../css/Navbar.css';
 
-
 const Navbar = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
+  const history = useHistory(); // Create history object
   const userType = JSON.parse(localStorage.getItem('user'))?.userType || '';
+
+  const handleLogout = () => {
+    logout(); // Call the logout function from AuthContext
+    history.push('/'); // Redirect to home page
+  };
 
   return (
     <nav className="navbar">
@@ -32,7 +37,7 @@ const Navbar = () => {
                 <Link to="/profile" className="navbar-link">Profile</Link>
               </li>
               <li className="navbar-item">
-                <button className="navbar-button" onClick={logout}>Logout</button>
+                <button className="navbar-button" onClick={handleLogout}>Logout</button>
               </li>
             </>
           ) : (
