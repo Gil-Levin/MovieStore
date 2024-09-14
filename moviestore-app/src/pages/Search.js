@@ -71,7 +71,7 @@ const Search = () => {
 
   return (
     <div>
-      <h1>Search Page</h1>
+      <h1 className="search-title">Search Page</h1>
       <div className="search-container">
         <input 
           type="text"

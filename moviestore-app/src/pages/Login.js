@@ -15,15 +15,11 @@ function Login() {
     try {
       const response = await axios.post('http://localhost:7178/api/Login/login', { email, password });
       const { token, user } = response.data;
-      
-      if (token) {
+
         localStorage.setItem('token', token);
-      }
-      if (user) {
         localStorage.setItem('user', JSON.stringify(user));
-      }
       
-      login(token);
+      login(token,user);
       console.log("Successful login!");
       history.push('/');
     } catch (error) {
