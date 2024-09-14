@@ -3,12 +3,14 @@ import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
 import AuthContext from '../context/authContext';
 import '../css/Login.css';
+import '../css/Notification.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [notification, setNotification] = useState({ message: '', type: '' });
   const history = useHistory();
-  const { login } = useContext(AuthContext); 
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,17 +18,23 @@ function Login() {
       const response = await axios.post('http://localhost:7178/api/Login/login', { email, password });
       const { token, user } = response.data;
 
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      login(token, user);
+
+      setNotification({ message: 'Login successful!', type: 'success' });
       
-      login(token,user);
-      console.log("Successful login!");
-      history.push('/');
+      setTimeout(() => {
+        history.push('/');
+      }, 2000);
     } catch (error) {
-      alert('Login failed. Please check your credentials.');
+      setNotification({ message: 'Login failed. Please check your credentials.', type: 'error' });
+        setTimeout(() => {
+        setNotification({ message: '', type: '' });
+      }, 5000);
     }
   };
-  
 
   return (
     <div className="login-container">
@@ -55,6 +63,12 @@ function Login() {
       <p className="register-link">
         Don't have an account yet? <Link to="/register">Register here</Link>
       </p>
+      
+      {notification.message && (
+        <div className={`notification ${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
     </div>
   );
 }

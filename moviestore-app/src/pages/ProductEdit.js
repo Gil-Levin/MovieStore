@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
+import '../css/Edit.css';
 
 const ProductEdit = () => {
   const { id } = useParams();
@@ -13,6 +14,7 @@ const ProductEdit = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [imagePreview, setImagePreview] = useState('');
   const history = useHistory();
 
@@ -83,9 +85,47 @@ const ProductEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!product.name.trim()) {
+      setError('Name cannot be empty.');
+      return;
+    }
+    if (!product.description.trim()) {
+      setError('Description cannot be empty.');
+      return;
+    }
+    if (!product.category.trim()) {
+      setError('Category cannot be empty.');
+      return;
+    }
+    if (!product.price || product.price <= 0) {
+      setError('Price must be greater than 0.');
+      return;
+    }
+    if (!product.image) {
+      setError('Image cannot be empty.');
+      return;
+    }
+
+    if (product.name.length > 50) {
+      setError('Name cannot exceed 50 characters.');
+      return;
+    }
+    if (product.description.length > 500) {
+      setError('Description cannot exceed 500 characters.');
+      return;
+    }
+    if (product.category.length > 50) {
+      setError('Category cannot exceed 50 characters.');
+      return;
+    }
+
     try {
       await axios.put(`http://localhost:7178/api/products/${id}`, product);
-      history.push('/edit');
+      setSuccess('Product updated successfully!');
+      setTimeout(() => {
+        history.push('/edit');
+      }, 2000);
     } catch (err) {
       setError('Error updating product');
     }
@@ -96,7 +136,6 @@ const ProductEdit = () => {
   };
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
 
   return (
     <div className="edit-container">
@@ -147,12 +186,15 @@ const ProductEdit = () => {
               onChange={handleInputChange}
             />
           </div>
-          <button type="submit">Save Changes</button>
-          <button type="button" onClick={handleCancel} style={{ marginLeft: '10px', backgroundColor: '#ccc' }}>
-            Cancel
-          </button>
+          <div className="button-group">
+            <button type="submit" className="save-button">Save Changes</button>
+            <button type="button" onClick={handleCancel} className="cancel-button">
+              Cancel
+            </button>
+          </div>
         </form>
-        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {error && <div className="notification error">{error}</div>}
+        {success && <div className="notification success">{success}</div>}
       </div>
     </div>
   );

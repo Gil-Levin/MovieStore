@@ -41,7 +41,6 @@
 
 .product-details button {
   padding: 10px 20px;
-  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -49,12 +48,74 @@
   font-size: 1rem;
 }
 
-.product-details button:hover {
-  background-color: #0056b3;
-}
-
 .product-details label {
   font-weight: bold;
   margin-bottom: 5px;
   display: block;
+}
+
+.notification {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+.notification.success {
+  background-color: green;
+}
+
+.notification.error {
+  background-color: red;
+}
+
+.button-group {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Button styles */
+.button-group {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.save-button {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.save-button:hover {
+  background-color: #45a049; /* Darker green */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.cancel-button {
+  background-color: #f44336; /* Red */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f; /* Darker red */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* General hover effect */
+button:focus {
+  outline: none;
 }
