@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import About from './pages/About';
@@ -10,9 +10,11 @@ import Edit from './pages/Edit';
 import Users from './pages/Users';
 import UserEdit from './pages/UserEdit';
 import ProductEdit from './pages/ProductEdit';
+import Unauthorized from './pages/Unauthorized';
 import { MoviesProvider } from './context/MoviesContext';
 import AuthContext, { AuthProvider } from './context/authContext';
 import Navbar from './components/navbar';
+import ProtectedRoute from './components/protectedRoute'; // Import the ProtectedRoute component
 
 function App() {
   return (
@@ -28,29 +30,16 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/profile" component={Profile} />
-              <AdminRoutes />
+              <ProtectedRoute path="/edit" exact component={Edit} />
+              <ProtectedRoute path="/edit/:id" component={ProductEdit} />
+              <ProtectedRoute path="/users" exact component={Users} />
+              <ProtectedRoute path="/users/:id" component={UserEdit} />
+              <Route path="/unauthorized" component={Unauthorized} />
             </Switch>
           </div>
         </Router>
       </MoviesProvider>
     </AuthProvider>
-  );
-}
-
-function AdminRoutes() {
-  const { userType } = useContext(AuthContext);
-
-  if (userType?.toLowerCase() !== 'admin') {
-    return <Redirect to="/" />;
-  }
-
-  return (
-    <>
-      <Route path="/edit" exact component={Edit} />
-      <Route path="/edit/:id" component={ProductEdit} />
-      <Route path="/users" exact component={Users} />
-      <Route path="/users/:id" component={UserEdit} /> 
-    </>
   );
 }
 

@@ -78,14 +78,13 @@
   text-align: center;
 }
 
-/* Button styles */
 .button-group {
   margin-top: 20px;
   text-align: center;
 }
 
 .save-button {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50; 
   color: white;
   padding: 10px 20px;
   border: none;
@@ -96,12 +95,12 @@
 }
 
 .save-button:hover {
-  background-color: #45a049; /* Darker green */
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  background-color: #45a049;
+  transform: scale(1.05); 
 }
 
 .cancel-button {
-  background-color: #f44336; /* Red */
+  background-color: #f44336;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -111,11 +110,10 @@
 }
 
 .cancel-button:hover {
-  background-color: #d32f2f; /* Darker red */
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  background-color: #d32f2f;
+  transform: scale(1.05);
 }
 
-/* General hover effect */
 button:focus {
   outline: none;
 }
