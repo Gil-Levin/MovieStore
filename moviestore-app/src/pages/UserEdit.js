@@ -21,9 +21,10 @@ const UserEdit = () => {
         const response = await axios.get(`http://localhost:7178/api/users/${id}`);
         setUser(response.data);
         setImagePreview(response.data.profilePicture);
-        setLoading(false);
       } catch (err) {
+        console.error('Error fetching user details:', err);
         setError('Error fetching user details');
+      } finally {
         setLoading(false);
       }
     };
@@ -54,11 +55,33 @@ const UserEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Clear previous errors
+
+    // Basic validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(user.email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
     try {
       await axios.put(`http://localhost:7178/api/users/${id}`, user);
       history.push('/users');
     } catch (err) {
-      setError('Error updating user');
+      if (err.response) {
+        switch (err.response.status) {
+          case 409:
+            setError(err.response.data.message || 'Username or email is already taken. Please choose a different one.');
+            break;
+          case 400:
+            setError('Invalid data. Please check your input and try again.');
+            break;
+          default:
+            setError('Error updating user');
+        }
+      } else {
+        setError('Error updating user');
+      }
     }
   };
 
@@ -67,47 +90,54 @@ const UserEdit = () => {
   };
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
 
   return (
     <div className="edit-container">
-      <img src={imagePreview} alt={user.username} className="product-image" style={{ width: 200, height: 300 }} />
-      <div className="product-details">
+      <img src={imagePreview} alt={`Profile of ${user.username}`} className="profile-image" style={{ width: 200, height: 300 }} />
+      <div className="edit-form">
         <h2>Edit User</h2>
+        {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Username:</label>
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
+              id="username"
               name="username"
               value={user.username}
               onChange={handleInputChange}
+              required
             />
           </div>
           <div>
-            <label>Email:</label>
+            <label htmlFor="email">Email:</label>
             <input
-              type="text"
+              type="email"
+              id="email"
               name="email"
               value={user.email}
               onChange={handleInputChange}
+              required
             />
           </div>
           <div>
-            <label>Profile Picture:</label>
+            <label htmlFor="profilePicture">Profile Picture:</label>
             <input
               type="file"
+              id="profilePicture"
               accept="image/*"
               onChange={handleImageUpload}
             />
           </div>
           <div>
-            <label>User Type:</label>
+            <label htmlFor="userType">User Type:</label>
             <input
               type="text"
+              id="userType"
               name="userType"
               value={user.userType}
               onChange={handleInputChange}
+              required
             />
           </div>
           <button type="submit">Save Changes</button>
@@ -115,7 +145,6 @@ const UserEdit = () => {
             Cancel
           </button>
         </form>
-        {error && <div style={{ color: 'red' }}>{error}</div>}
       </div>
     </div>
   );
