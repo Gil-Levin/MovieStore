@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
+import MoviesContext from '../context/MoviesContext';
 import '../css/Edit.css';
 
 const ProductEdit = () => {
   const { id } = useParams();
+  const { refreshMovies } = useContext(MoviesContext);
   const [product, setProduct] = useState({
     name: '',
     category: '',
@@ -123,6 +125,7 @@ const ProductEdit = () => {
     try {
       await axios.put(`http://localhost:7178/api/products/${id}`, product);
       setSuccess('Product updated successfully!');
+      await refreshMovies();
       setTimeout(() => {
         history.push('/edit');
       }, 2000);

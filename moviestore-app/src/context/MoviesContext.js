@@ -1,15 +1,15 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-const MoviesContext = createContext(); 
+const MoviesContext = createContext();
 
 export const MoviesProvider = ({ children }) => {
-  const [movies, setMovies] = useState([]); 
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadProducts = async () => {
-      setLoading(true);  
+      setLoading(true);
 
       try {
         const response = await axios.get('http://localhost:7178/api/products');
@@ -18,7 +18,7 @@ export const MoviesProvider = ({ children }) => {
           isToggleOn: false,
         }));
 
-        setMovies(products); 
+        setMovies(products);
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
@@ -29,8 +29,26 @@ export const MoviesProvider = ({ children }) => {
     loadProducts();
   }, []);
 
+  const refreshMovies = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.get('http://localhost:7178/api/products');
+      const products = response.data.map((product) => ({
+        ...product,
+        isToggleOn: false,
+      }));
+
+      setMovies(products);
+    } catch (error) {
+      console.error('Error refreshing products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <MoviesContext.Provider value={{ movies, loading, setMovies }}>
+    <MoviesContext.Provider value={{ movies, loading, setMovies, refreshMovies }}>
       {children}
     </MoviesContext.Provider>
   );

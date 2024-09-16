@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
+import AuthContext from '../context/authContext';
 
 const UserEdit = () => {
   const { id } = useParams();
+  const { users, updateUser } = useContext(AuthContext);
   const [user, setUser] = useState({
     username: '',
     email: '',
@@ -19,8 +21,8 @@ const UserEdit = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(`http://localhost:7178/api/users/${id}`);
-        setUser(response.data);
-        setImagePreview(response.data.profilePicture);
+        setUser(response.data || {});
+        setImagePreview(response.data?.profilePicture || '');
       } catch (err) {
         console.error('Error fetching user details:', err);
         setError('Error fetching user details');
@@ -34,7 +36,10 @@ const UserEdit = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUser(prevUser => ({
+      ...prevUser,
+      [name]: value || ''
+    }));
   };
 
   const handleImageUpload = (e) => {
@@ -48,16 +53,18 @@ const UserEdit = () => {
     const reader = new FileReader();
     reader.onload = (event) => {
       setImagePreview(event.target.result);
-      setUser({ ...user, profilePicture: event.target.result });
+      setUser(prevUser => ({
+        ...prevUser,
+        profilePicture: event.target.result
+      }));
     };
     reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError('');
 
-    // Basic validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(user.email)) {
       setError('Please enter a valid email address.');
@@ -65,7 +72,12 @@ const UserEdit = () => {
     }
 
     try {
-      await axios.put(`http://localhost:7178/api/users/${id}`, user);
+      const response = await axios.put(`http://localhost:7178/api/users/${id}`, user);
+      
+      if (updateUser) {
+        updateUser(response.data);
+      }
+
       history.push('/users');
     } catch (err) {
       if (err.response) {

@@ -6,24 +6,15 @@ import '../css/Search.css';
 const Search = () => {
   const { movies, loading, setMovies } = useContext(MoviesContext);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredMovies, setFilteredMovies] = useState(movies);
-  const [sortOrder, setSortOrder] = useState('default'); 
-
-  const [originalMovies, setOriginalMovies] = useState(movies);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [sortOrder, setSortOrder] = useState('default');
 
   useEffect(() => {
-    setOriginalMovies(movies);
-  }, [movies]);
-
-  useEffect(() => {
-    const filtered = originalMovies.filter(movie =>
-      movie.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = movies.filter(movie =>
+      movie.name.includes(searchTerm)
     );
-    setFilteredMovies(filtered);
-  }, [searchTerm, originalMovies]);
 
-  useEffect(() => {
-    let sortedMovies = [...filteredMovies];
+    let sortedMovies = [...filtered];
     switch (sortOrder) {
       case 'name-asc':
         sortedMovies.sort((a, b) => a.name.localeCompare(b.name));
@@ -38,27 +29,21 @@ const Search = () => {
         sortedMovies.sort((a, b) => b.price - a.price);
         break;
       case 'default':
-        sortedMovies = [...originalMovies.filter(movie =>
-          movie.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )];
-        break;
       default:
         break;
     }
+
     setFilteredMovies(sortedMovies);
-  }, [sortOrder, filteredMovies, searchTerm, originalMovies]);
+  }, [movies, searchTerm, sortOrder]);
 
   const handleToggle = (productId) => {
-    const updatedMovies = originalMovies.map((product) => {
-      if (product.productId === productId) { 
-        return { ...product, isToggleOn: !product.isToggleOn }; 
+    const updatedMovies = movies.map((product) => {
+      if (product.productId === productId) {
+        return { ...product, isToggleOn: !product.isToggleOn };
       }
       return product;
     });
     setMovies(updatedMovies);
-    setFilteredMovies(updatedMovies.filter(movie =>
-      movie.name.toLowerCase().includes(searchTerm.toLowerCase())
-    ));
   };
 
   const handleSearch = (e) => {
@@ -73,7 +58,7 @@ const Search = () => {
     <div>
       <h1 className="search-title">Search Page</h1>
       <div className="search-container">
-        <input 
+        <input
           type="text"
           value={searchTerm}
           onChange={handleSearch}
@@ -105,4 +90,3 @@ const Search = () => {
 };
 
 export default Search;
-

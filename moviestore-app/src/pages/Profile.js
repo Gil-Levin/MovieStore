@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import EditProfile from './ProfileEdit';
+import AuthContext from '../context/authContext';
+import { Link } from 'react-router-dom';
 import '../css/Profile.css';
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
-
+  const { isAuthenticated } = useContext(AuthContext);
+  
   const user = JSON.parse(localStorage.getItem('user'));
 
   const handleEditClick = () => {
@@ -27,12 +30,16 @@ const Profile = () => {
             <p><strong>Password:</strong> {user.password}</p>
           </div>
           <button onClick={handleEditClick} className="edit-button">Edit Profile</button>
+          {isAuthenticated && (
+            <Link to="/cart" className="view-cart-link">View Cart</Link>
+          )}
         </div>
       ) : (
-        <EditProfile user={user} onCancel={handleCancelClick} />  
+        <EditProfile user={user} onCancel={handleCancelClick} />
       )}
     </div>
   );
 };
 
 export default Profile;
+

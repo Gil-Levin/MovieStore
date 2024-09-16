@@ -11,6 +11,7 @@ import Users from './pages/Users';
 import UserEdit from './pages/UserEdit';
 import ProductEdit from './pages/ProductEdit';
 import Unauthorized from './pages/Unauthorized';
+import Cart from './pages/Cart';
 import { MoviesProvider } from './context/MoviesContext';
 import AuthContext, { AuthProvider } from './context/authContext';
 import Navbar from './components/navbar';
@@ -35,6 +36,7 @@ function App() {
               <ProtectedRoute path="/users" exact component={Users} />
               <ProtectedRoute path="/users/:id" component={UserEdit} />
               <Route path="/unauthorized" component={Unauthorized} />
+              <Route path="/cart" component={Cart} />              
             </Switch>
           </div>
         </Router>
