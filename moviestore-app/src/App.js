@@ -13,6 +13,7 @@ import ProductEdit from './pages/ProductEdit';
 import Unauthorized from './pages/Unauthorized';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart';
+import MoviePage from './pages/MoviePage';
 import { MoviesProvider } from './context/MoviesContext';
 import { AuthProvider } from './context/authContext';
 import Navbar from './components/navbar';
@@ -27,6 +28,7 @@ function App() {
             <Navbar />
             <Switch>
               <Route path="/" exact component={Home} />
+              <Route path="/movies/:productId" component={MoviePage} />
               <Route path="/about" component={About} />
               <Route path="/search" component={Search} />
               <Route path="/login" component={Login} />
