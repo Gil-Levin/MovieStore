@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Data;
@@ -23,45 +21,53 @@ namespace MovieStore_API.Controllers
             _context = context;
         }
 
+        // GET: api/Items/{cartId}
         [AllowAnonymous]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+        [HttpGet("{cartId}")]
+        public async Task<ActionResult<IEnumerable<Item>>> GetItemsByCartId(int cartId)
         {
-          if (_context.Items == null)
-          {
-              return NotFound();
-          }
-            return await _context.Items.ToListAsync();
-        }
+            if (_context.Items == null)
+            {
+                return NotFound();
+            }
+            var items = await _context.Items
+                .Where(i => i.CartId == cartId)
+                .Include(i => i.Product) // Include product details
+                .ToListAsync();
 
-        [AllowAnonymous]
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Item>> GetItem(int id)
-        {
-          if (_context.Items == null)
-          {
-              return NotFound();
-          }
-            var item = await _context.Items.FindAsync(id);
-
-            if (item == null)
+            if (items == null || !items.Any())
             {
                 return NotFound();
             }
 
-            return item;
+            return Ok(items);
         }
 
+        // PUT: api/Items/{id}
         [AllowAnonymous]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(int id, Item item)
+        public async Task<IActionResult> UpdateItemQuantity(int id, [FromBody] Item updatedItem)
         {
-            if (id != item.ItemID)
+            if (id != updatedItem.ItemID)
             {
-                return BadRequest();
+                return BadRequest("Item ID mismatch.");
             }
 
-            _context.Entry(item).State = EntityState.Modified;
+            var existingItem = await _context.Items.FindAsync(id);
+            if (existingItem == null)
+            {
+                return NotFound("Item not found.");
+            }
+
+            // Validate quantity
+            if (updatedItem.Quantity < 0)
+            {
+                return BadRequest("Quantity must be non-negative.");
+            }
+
+            existingItem.Quantity = updatedItem.Quantity;
+
+            _context.Entry(existingItem).State = EntityState.Modified;
 
             try
             {
@@ -71,7 +77,7 @@ namespace MovieStore_API.Controllers
             {
                 if (!ItemExists(id))
                 {
-                    return NotFound();
+                    return NotFound("Item not found.");
                 }
                 else
                 {
@@ -81,21 +87,7 @@ namespace MovieStore_API.Controllers
 
             return NoContent();
         }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<ActionResult<Item>> PostItem(Item item)
-        {
-          if (_context.Items == null)
-          {
-              return Problem("Entity set 'MovieStoreDbContext.Items'  is null.");
-          }
-            _context.Items.Add(item);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetItem", new { id = item.ItemID }, item);
-        }
-
+        // DELETE: api/Items/{id}
         [AllowAnonymous]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(int id)

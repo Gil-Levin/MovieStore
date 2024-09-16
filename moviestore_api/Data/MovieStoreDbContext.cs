@@ -1,17 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using MovieStore_API.Models; // Add the namespace of your models
-using Pomelo.EntityFrameworkCore.MySql; // Add this namespace
-using System.Reflection.Emit;
-using Microsoft.EntityFrameworkCore.Migrations;
+using MovieStore_API.Models;
 
 namespace MovieStore_API.Data
 {
     public class MovieStoreDbContext : DbContext
     {
         private readonly IConfiguration _configuration;
-
-        public MovieStoreDbContext() { }
 
         public MovieStoreDbContext(DbContextOptions<MovieStoreDbContext> options, IConfiguration configuration)
             : base(options)
@@ -22,17 +16,8 @@ namespace MovieStore_API.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Item> Items{ get; set; }
+        public DbSet<Item> Items { get; set; }
         public DbSet<Cart> Carts { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            string connectionString = _configuration.GetConnectionString("MyConnectionString");
-
-            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 26)));
-
-            base.OnConfiguring(optionsBuilder);
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

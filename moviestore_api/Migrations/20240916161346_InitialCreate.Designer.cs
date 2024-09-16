@@ -11,7 +11,7 @@ using MovieStore_API.Data;
 namespace MovieStore_api.Migrations
 {
     [DbContext(typeof(MovieStoreDbContext))]
-    [Migration("20240913053821_InitialCreate")]
+    [Migration("20240916161346_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
