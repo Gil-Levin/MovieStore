@@ -778,3 +778,4 @@ C:\Users\User\Desktop\MovieStore_Backup\MovieStore\moviestore_api\obj\Debug\net6
 C:\Users\User\Desktop\MovieStore_Backup\MovieStore\moviestore_api\obj\Debug\net6.0\MovieStore_api.pdb
 C:\Users\User\Desktop\MovieStore_Backup\MovieStore\moviestore_api\obj\Debug\net6.0\MovieStore_api.genruntimeconfig.cache
 C:\Users\User\Desktop\MovieStore_Backup\MovieStore\moviestore_api\obj\Debug\net6.0\ref\MovieStore_api.dll
+C:\Users\User\Desktop\MovieStore_Backup\MovieStore\moviestore_api\bin\Debug\net6.0\BCrypt.Net-Next.dll

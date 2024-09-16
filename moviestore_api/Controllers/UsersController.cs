@@ -3,11 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Data;
 using MovieStore_API.Models;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
+using BCrypt.Net;
 
 namespace MovieStore_API.Controllers
 {
@@ -120,10 +117,17 @@ namespace MovieStore_API.Controllers
                 return Conflict(new { message = "Email is already in use." });
             }
 
+            user.Password = HashPassword(user.Password);
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+        }
+
+        private string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
         [HttpDelete("{id}")]
