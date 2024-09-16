@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import '../css/Register.css';
-import '../css/Notification.css'; // Ensure you have this file for notification styles
+import '../css/Notification.css';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -18,7 +18,7 @@ function Register() {
       const response = await axios.get('http://localhost:7178/api/Users/check', {
         params: { username, email }
       });
-      return response.data; // Assume the response indicates existence
+      return response.data;
     } catch (error) {
       console.error('Error checking existence:', error);
       setNotification({ message: 'Error checking if the username or email exists.', type: 'error' });
