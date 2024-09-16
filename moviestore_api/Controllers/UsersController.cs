@@ -5,6 +5,9 @@ using MovieStore_API.Data;
 using MovieStore_API.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MovieStore_API.Controllers
 {
@@ -54,7 +57,6 @@ namespace MovieStore_API.Controllers
                 return BadRequest("User ID mismatch.");
             }
 
-            // Check if the username is already taken by another user
             var existingUserName = await _context.Users
                 .Where(u => u.Username == user.Username && u.UserId != id)
                 .FirstOrDefaultAsync();
@@ -91,7 +93,6 @@ namespace MovieStore_API.Controllers
                 }
             }
 
-            // Retrieve the updated user from the database
             var updatedUser = await _context.Users.FindAsync(id);
 
             if (updatedUser == null)
@@ -102,12 +103,23 @@ namespace MovieStore_API.Controllers
             return Ok(updatedUser);
         }
 
-
-
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            var usernameExists = await _context.Users.AnyAsync(u => u.Username == user.Username);
+            var emailExists = await _context.Users.AnyAsync(u => u.Email == user.Email);
+
+            if (usernameExists)
+            {
+                return Conflict(new { message = "Username is already taken." });
+            }
+
+            if (emailExists)
+            {
+                return Conflict(new { message = "Email is already in use." });
+            }
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
@@ -129,10 +141,10 @@ namespace MovieStore_API.Controllers
             return NoContent();
         }
 
+        [AllowAnonymous]
         [HttpGet("profile")]
         public async Task<ActionResult<User>> GetProfile()
         {
-            // Extract user ID from JWT claims
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (userIdClaim == null)
@@ -154,11 +166,20 @@ namespace MovieStore_API.Controllers
             return user;
         }
 
+        [HttpGet("check")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CheckIfExists([FromQuery] string username, [FromQuery] string email)
+        {
+            var usernameExists = await _context.Users.AnyAsync(u => u.Username == username);
+            var emailExists = await _context.Users.AnyAsync(u => u.Email == email);
+
+            return Ok(new { usernameExists, emailExists });
+        }
+
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserId == id);
         }
     }
 }
-
 

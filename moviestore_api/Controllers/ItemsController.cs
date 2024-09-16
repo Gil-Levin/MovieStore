@@ -32,7 +32,7 @@ namespace MovieStore_API.Controllers
             }
             var items = await _context.Items
                 .Where(i => i.CartId == cartId)
-                .Include(i => i.Product) // Include product details
+                .Include(i => i.Product)
                 .ToListAsync();
 
             if (items == null || !items.Any())
@@ -59,7 +59,6 @@ namespace MovieStore_API.Controllers
                 return NotFound("Item not found.");
             }
 
-            // Validate quantity
             if (updatedItem.Quantity < 0)
             {
                 return BadRequest("Quantity must be non-negative.");

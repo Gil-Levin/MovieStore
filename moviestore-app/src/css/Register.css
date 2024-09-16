@@ -55,4 +55,20 @@
   .register-container form button:hover {
     background-color: #0056b3;
   }
+  .notification {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .notification.success {
+    background-color: green;
+  }
+  
+  .notification.error {
+    background-color: red;
+  }
   
