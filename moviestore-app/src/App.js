@@ -1,8 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
-import Search from './pages/Search';
-import About from './pages/About';
+
+// Common
+import NavBar from './components/common/NavBar';
+
+// Pages
+import HomePage from './components/pages/HomePage';
+import MoviesPage from './components/pages/MoviesPage';
+import MoviePage from './components/pages/MoviePage';
+import AboutPage from './components/pages/AboutPage';
+
+// unorganized
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
@@ -13,10 +21,8 @@ import ProductEdit from './pages/ProductEdit';
 import Unauthorized from './pages/Unauthorized';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart';
-import MoviePage from './pages/MoviePage';
 import { MoviesProvider } from './context/MoviesContext';
 import { AuthProvider } from './context/authContext';
-import Navbar from './components/navbar';
 import ProtectedRoute from './components/protectedRoute';
 
 function App() {
@@ -25,12 +31,13 @@ function App() {
       <MoviesProvider>
         <Router>
           <div>
-            <Navbar />
+            <NavBar />
             <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/movies/:productId" component={MoviePage} />
-              <Route path="/about" component={About} />
-              <Route path="/search" component={Search} />
+              <Route path="/" exact component={HomePage} />
+              <Route path="/movies" exact component={MoviesPage} />
+              <Route path="/movies/:productId" exact component={MoviePage} />
+              <Route path="/about" component={AboutPage} />
+              
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/profile" component={Profile} />
@@ -40,7 +47,7 @@ function App() {
               <ProtectedRoute path="/users/:id" component={UserEdit} />
               <Route path="/unauthorized" component={Unauthorized} />
               <Route path="/cart" component={Cart} />
-              <Route component={NotFound} /> 
+              <Route component={NotFound} />
             </Switch>
           </div>
         </Router>

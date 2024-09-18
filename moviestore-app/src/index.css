@@ -4,7 +4,25 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('./assets/images/golden_lines.jpg');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
 }
+
+/* Pagination */
+.pagination-warning .page-item.active .page-link {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+.pagination-warning .page-link {
+  color: #ffc107;
+}
+.pagination-warning .page-link:hover {
+  background-color: #e0a800;
+  border-color: #e0a800;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
@@ -20,15 +38,10 @@ nav {
   text-decoration: none;
 }
 
-.movies-container { /* Container for the product cards */
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-left: auto;
-  margin-right: auto;
-}
 
-.movie { /* Product card */
+
+.movie {
+  /* Product card */
   border: 1px solid;
   width: 400px;
   margin-bottom: 40px;
@@ -39,27 +52,32 @@ nav {
   color: white;
 }
 
-.title { /* Product title */
+.title {
+  /* Product title */
   font-weight: bold;
   font-size: 1.2em;
   margin-top: 10px;
 }
 
-.movie-url { /* Product image container */
+.movie-url {
+  /* Product image container */
   text-align: center;
   margin: 10px 0;
 }
 
-.movie-url img { /* Product image styling */
+.movie-url img {
+  /* Product image styling */
   max-width: 100%;
   border-radius: 10px;
 }
 
-.movie-details { /* Product details container */
+.movie-details {
+  /* Product details container */
   margin-top: 15px;
 }
 
-.overview { /* Product description */
+.overview {
+  /* Product description */
   height: 155px;
   overflow: auto;
   margin: 25px 0;
@@ -68,7 +86,9 @@ nav {
   border-radius: 10px;
 }
 
-.genre, .rating { /* Other product details */
+.genre,
+.rating {
+  /* Other product details */
   margin-top: 10px;
 }
 

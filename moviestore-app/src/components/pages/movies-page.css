@@ -1,0 +1,13 @@
+.search-section {
+    padding: 5rem 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-section:hover {
+    box-shadow: 0 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.search-section h1 {
+    font-size: 3rem;
+    font-weight: 500;
+}

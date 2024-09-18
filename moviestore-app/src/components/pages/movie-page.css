@@ -1,0 +1,29 @@
+.movie-page {
+    padding: 20px;
+  }
+
+  .movie-page-img {
+    width: 400px;
+    height: 600px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    border-radius: 10px;
+  }
+  .movie-page-img:hover {
+    box-shadow: 0 0px 20px rgba(0, 0, 0, 0.9); 
+  }
+
+  .movie-page h2 {
+    margin-bottom: 10px;
+  }
+
+  .movie-page p {
+    margin-top: 10px;
+    font-size: 1.1rem;
+  }
+
+  .movie-page h5 {
+    margin-top: 15px;
+    color: #888;
+  }
