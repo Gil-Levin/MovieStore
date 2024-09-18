@@ -8,8 +8,7 @@ using MovieStore_API.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using BCrypt.Net;
-
+using System.Security.Cryptography;
 
 namespace MovieStore_API.Controllers
 {
@@ -26,6 +25,7 @@ namespace MovieStore_API.Controllers
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
+
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
@@ -37,7 +37,9 @@ namespace MovieStore_API.Controllers
 
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
+            string hashedInputPassword = HashPassword(loginDto.Password);
+
+            if (user == null || user.Password != hashedInputPassword)
             {
                 return Unauthorized("Invalid email or password.");
             }
@@ -51,6 +53,14 @@ namespace MovieStore_API.Controllers
             });
         }
 
+        public static string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(bytes);
+            }
+        }
 
         private string GenerateJwtToken(User user)
         {

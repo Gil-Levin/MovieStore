@@ -117,17 +117,12 @@ namespace MovieStore_API.Controllers
                 return Conflict(new { message = "Email is already in use." });
             }
 
-            user.Password = HashPassword(user.Password);
+            user.Password = LoginController.HashPassword(user.Password).ToString();
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
-        }
-
-        private string HashPassword(string password)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
         [HttpDelete("{id}")]
