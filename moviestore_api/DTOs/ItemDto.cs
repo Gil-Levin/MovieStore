@@ -1,6 +1,4 @@
-﻿using MovieStore_API.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MovieStore_API.DTOs
 {

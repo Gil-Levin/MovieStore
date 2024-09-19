@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Data;
@@ -16,10 +13,12 @@ namespace MovieStore_API.Controllers
     public class ItemsController : ControllerBase
     {
         private readonly MovieStoreDbContext _context;
+        private readonly ILogger<ItemsController> _logger;
 
-        public ItemsController(MovieStoreDbContext context)
+        public ItemsController(MovieStoreDbContext context, ILogger<ItemsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Items/{cartId}
@@ -29,6 +28,7 @@ namespace MovieStore_API.Controllers
         {
             if (_context.Items == null)
             {
+                _logger.LogWarning("Items table is null.");
                 return NotFound();
             }
             var items = await _context.Items
@@ -38,9 +38,11 @@ namespace MovieStore_API.Controllers
 
             if (items == null || !items.Any())
             {
+                _logger.LogWarning($"No items found for cartId: {cartId}");
                 return NotFound();
             }
 
+            _logger.LogInformation($"Returning items for cartId: {cartId}");
             return Ok(items);
         }
 
@@ -51,13 +53,14 @@ namespace MovieStore_API.Controllers
         {
             if (id != updatedItemDto.ItemID)
             {
+                _logger.LogWarning("Invalid item ID for update.");
                 return BadRequest();
             }
 
-            // Retrieve the existing item
             var existingItem = await _context.Items.FindAsync(id);
             if (existingItem == null)
             {
+                _logger.LogWarning($"Item not found for ID: {id}");
                 return NotFound();
             }
 
@@ -66,15 +69,18 @@ namespace MovieStore_API.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                _logger.LogInformation($"Item {id} updated successfully.");
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!ItemExists(id))
                 {
+                    _logger.LogWarning($"Item with ID: {id} does not exist.");
                     return NotFound();
                 }
                 else
                 {
+                    _logger.LogError($"Concurrency issue while updating item with ID: {id}");
                     throw;
                 }
             }
@@ -89,16 +95,19 @@ namespace MovieStore_API.Controllers
         {
             if (_context.Items == null)
             {
+                _logger.LogWarning("Items table is null.");
                 return NotFound();
             }
             var item = await _context.Items.FindAsync(id);
             if (item == null)
             {
+                _logger.LogWarning($"Item not found for ID: {id}");
                 return NotFound();
             }
 
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
+            _logger.LogInformation($"Item {id} deleted successfully.");
 
             return NoContent();
         }

@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.Extensions.Logging;
 
 namespace MovieStore_API.Controllers
 {
@@ -18,13 +19,14 @@ namespace MovieStore_API.Controllers
     {
         private readonly MovieStoreDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<LoginController> _logger;
 
-        public LoginController(MovieStoreDbContext context, IConfiguration configuration)
+        public LoginController(MovieStoreDbContext context, IConfiguration configuration, ILogger<LoginController> logger)
         {
             _context = context;
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _logger = logger;
         }
-
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -32,20 +34,29 @@ namespace MovieStore_API.Controllers
         {
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Invalid login model state.");
                 return BadRequest(ModelState);
             }
 
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
 
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found for email: {loginDto.Email}");
+                return Unauthorized("Invalid email or password.");
+            }
+
             string hashedInputPassword = HashPassword(loginDto.Password);
 
-            if (user == null || user.Password != hashedInputPassword)
+            if (user.Password != hashedInputPassword)
             {
+                _logger.LogWarning("Invalid password.");
                 return Unauthorized("Invalid email or password.");
             }
 
             var token = GenerateJwtToken(user);
 
+            _logger.LogInformation($"User {user.Email} logged in successfully.");
             return Ok(new
             {
                 user,
@@ -82,6 +93,7 @@ namespace MovieStore_API.Controllers
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: credentials);
 
+            _logger.LogInformation($"JWT token generated for user {user.Email}.");
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

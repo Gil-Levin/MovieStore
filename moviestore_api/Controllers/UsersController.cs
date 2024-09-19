@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Data;
 using MovieStore_API.Models;
 using System.Security.Claims;
-using BCrypt.Net;
 
 namespace MovieStore_API.Controllers
 {
@@ -26,9 +25,9 @@ namespace MovieStore_API.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
-            if (users == null)
+            if (users == null || !users.Any())
             {
-                return NotFound();
+                return NotFound("No users found.");
             }
             return users;
         }
@@ -40,7 +39,7 @@ namespace MovieStore_API.Controllers
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound($"User with ID {id} not found.");
             }
             return user;
         }
@@ -82,7 +81,7 @@ namespace MovieStore_API.Controllers
             {
                 if (!UserExists(id))
                 {
-                    return NotFound();
+                    return NotFound($"User with ID {id} not found.");
                 }
                 else
                 {
@@ -94,7 +93,7 @@ namespace MovieStore_API.Controllers
 
             if (updatedUser == null)
             {
-                return NotFound();
+                return NotFound($"User with ID {id} not found.");
             }
 
             return Ok(updatedUser);
@@ -117,7 +116,7 @@ namespace MovieStore_API.Controllers
                 return Conflict(new { message = "Email is already in use." });
             }
 
-            user.Password = LoginController.HashPassword(user.Password).ToString();
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -131,7 +130,7 @@ namespace MovieStore_API.Controllers
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound($"User with ID {id} not found.");
             }
 
             _context.Users.Remove(user);
@@ -148,7 +147,7 @@ namespace MovieStore_API.Controllers
 
             if (userIdClaim == null)
             {
-                return Unauthorized();
+                return Unauthorized("User ID claim not found.");
             }
 
             if (!int.TryParse(userIdClaim, out var userId))
@@ -159,14 +158,14 @@ namespace MovieStore_API.Controllers
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
             {
-                return NotFound();
+                return NotFound($"User with ID {userId} not found.");
             }
 
             return user;
         }
 
-        [HttpGet("check")]
         [AllowAnonymous]
+        [HttpGet("check")]
         public async Task<IActionResult> CheckIfExists([FromQuery] string username, [FromQuery] string email)
         {
             var usernameExists = await _context.Users.AnyAsync(u => u.Username == username);
@@ -181,4 +180,3 @@ namespace MovieStore_API.Controllers
         }
     }
 }
-

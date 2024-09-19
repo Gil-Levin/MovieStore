@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Data;
@@ -17,73 +12,54 @@ namespace MovieStore_API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly MovieStoreDbContext _context;
+        private readonly ILogger<ProductsController> _logger;
 
-        public ProductsController(MovieStoreDbContext context)
+        public ProductsController(MovieStoreDbContext context, ILogger<ProductsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-          if (_context.Products == null)
-          {
-              return NotFound();
-          }
+            if (_context.Products == null)
+            {
+                _logger.LogWarning("Products set is null.");
+                return NotFound();
+            }
             return await _context.Products.ToListAsync();
         }
 
-        // [AllowAnonymous]
-        // [HttpGet("{id}")]
-        // public async Task<ActionResult<Product>> GetProduct(int id)
-        // {
-        //   if (_context.Products == null)
-        //   {
-        //       return NotFound();
-        //   }
-        //     var product = await _context.Products.FindAsync(id);
-
-        //     if (product == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return product;
-        // }
-        
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             if (_context.Products == null)
             {
+                _logger.LogWarning("Products set is null.");
                 return NotFound();
             }
-        
+
             var product = await _context.Products.FindAsync(id);
-        
+
             if (product == null)
             {
+                _logger.LogWarning($"Product with ID {id} not found.");
                 return NotFound();
             }
-        
-            // Convert binary image data to Base64 string
-            //string imageBase64 = product.Image != null
-            //    ? Convert.ToBase64String(product.Image)
-            //    : null;
-        
-            // Return the product with the Base64 image
+
             var productDto = new Product
             {
                 ProductId = product.ProductId,
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Image = product.Image, // Use the Base64 string for image
+                Image = product.Image,
                 Category = product.Category
             };
-        
+
             return Ok(productDto);
         }
 
@@ -93,6 +69,7 @@ namespace MovieStore_API.Controllers
         {
             if (id != product.ProductId)
             {
+                _logger.LogWarning($"Product ID mismatch. URL ID: {id}, Product ID: {product.ProductId}");
                 return BadRequest();
             }
 
@@ -102,18 +79,21 @@ namespace MovieStore_API.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!ProductExists(id))
                 {
+                    _logger.LogWarning($"Product with ID {id} not found.");
                     return NotFound();
                 }
                 else
                 {
+                    _logger.LogError($"Error occurred while updating product with ID {id}: {ex.Message}");
                     throw;
                 }
             }
 
+            _logger.LogInformation($"Product with ID {id} updated successfully.");
             return NoContent();
         }
 
@@ -121,13 +101,15 @@ namespace MovieStore_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-          if (_context.Products == null)
-          {
-              return Problem("Entity set 'MovieStoreDbContext.Products'  is null.");
-          }
+            if (_context.Products == null)
+            {
+                _logger.LogWarning("Products set is null.");
+                return Problem("Entity set 'MovieStoreDbContext.Products' is null.");
+            }
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
+            _logger.LogInformation($"Product with ID {product.ProductId} created successfully.");
             return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
         }
 
@@ -137,17 +119,20 @@ namespace MovieStore_API.Controllers
         {
             if (_context.Products == null)
             {
+                _logger.LogWarning("Products set is null.");
                 return NotFound();
             }
             var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
+                _logger.LogWarning($"Product with ID {id} not found.");
                 return NotFound();
             }
 
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
 
+            _logger.LogInformation($"Product with ID {id} deleted successfully.");
             return NoContent();
         }
 
@@ -155,6 +140,5 @@ namespace MovieStore_API.Controllers
         {
             return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
         }
-
     }
 }
