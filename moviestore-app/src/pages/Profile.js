@@ -27,7 +27,6 @@ const Profile = () => {
             <img src={user.profilePicture} alt="Profile" className="profile-picture" />
             <p><strong>Username:</strong> {user.username}</p>
             <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Password:</strong> {user.password}</p>
           </div>
           <button onClick={handleEditClick} className="edit-button">Edit Profile</button>
           {isAuthenticated && (

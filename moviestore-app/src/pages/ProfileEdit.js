@@ -117,15 +117,6 @@ const ProfileEdit = ({ user, onCancel }) => {
           />
         </label>
         <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
           Profile Picture Upload:
           <input
             type="file"
