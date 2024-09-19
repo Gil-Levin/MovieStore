@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Data;
+using MovieStore_API.DTOs;
 using MovieStore_API.Models;
 
 namespace MovieStore_API.Controllers
@@ -46,27 +47,21 @@ namespace MovieStore_API.Controllers
         // PUT: api/Items/{id}
         [AllowAnonymous]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItemQuantity(int id, [FromBody] Item updatedItem)
+        public async Task<IActionResult> UpdateItem(int id, ItemDto updatedItemDto)
         {
-            if (id != updatedItem.ItemID)
+            if (id != updatedItemDto.ItemID)
             {
-                return BadRequest("Item ID mismatch.");
+                return BadRequest();
             }
 
+            // Retrieve the existing item
             var existingItem = await _context.Items.FindAsync(id);
             if (existingItem == null)
             {
-                return NotFound("Item not found.");
+                return NotFound();
             }
 
-            if (updatedItem.Quantity < 0)
-            {
-                return BadRequest("Quantity must be non-negative.");
-            }
-
-            existingItem.Quantity = updatedItem.Quantity;
-
-            _context.Entry(existingItem).State = EntityState.Modified;
+            existingItem.Quantity = updatedItemDto.Quantity;
 
             try
             {
@@ -76,7 +71,7 @@ namespace MovieStore_API.Controllers
             {
                 if (!ItemExists(id))
                 {
-                    return NotFound("Item not found.");
+                    return NotFound();
                 }
                 else
                 {
@@ -86,6 +81,7 @@ namespace MovieStore_API.Controllers
 
             return NoContent();
         }
+
         // DELETE: api/Items/{id}
         [AllowAnonymous]
         [HttpDelete("{id}")]
