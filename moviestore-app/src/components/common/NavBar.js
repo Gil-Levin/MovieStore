@@ -24,14 +24,9 @@ const NavBar = () => {
             <Link to="/movies" className="navbar-link">Movies</Link>
           </li>
           {isAuthenticated && userType.toLowerCase() === 'admin' && (
-            <>
-              <li className="navbar-item">
-                <Link to="/edit" className="navbar-link">Edit</Link>
-              </li>
-              <li className="navbar-item">
-                <Link to="/users" className="navbar-link">Manage Customers</Link>
-              </li>
-            </>
+            <li className="navbar-item">
+              <Link to="/manage" className="navbar-link">Manage</Link>
+            </li>
           )}
           <li className="navbar-item">
             <Link to="/about" className="navbar-link">About</Link>
