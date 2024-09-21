@@ -116,5 +116,38 @@ namespace MovieStore_API.Controllers
         {
             return (_context.Items?.Any(e => e.ItemID == id)).GetValueOrDefault();
         }
+
+        // POST: api/Items
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult<Item>> CreateItem(ItemDto newItemDto)
+        {
+            if (newItemDto == null)
+            {
+                _logger.LogWarning("Received null item DTO.");
+                return BadRequest("Item data is required.");
+            }
+
+            var productExists = await _context.Items.AnyAsync(p => p.ProductID == newItemDto.ProductID);
+            if (!productExists)
+            {
+                _logger.LogWarning($"Product with ID {newItemDto.ProductID} does not exist.");
+                return NotFound($"Product with ID {newItemDto.ProductID} does not exist.");
+            }
+
+            var item = new Item
+            {
+                CartId = newItemDto.CartId,
+                ProductID = newItemDto.ProductID,
+                Quantity = newItemDto.Quantity
+            };
+
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation($"Item {item.ItemID} created successfully.");
+            return CreatedAtAction(nameof(GetItemsByCartId), new { cartId = item.CartId }, item);
+        }
+
     }
 }

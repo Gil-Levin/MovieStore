@@ -110,6 +110,32 @@
   },
   {
     "ContainingType": "MovieStore_API.Controllers.ItemsController",
+    "Method": "CreateItem",
+    "RelativePath": "api/Items",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newItemDto",
+        "Type": "MovieStore_API.DTOs.ItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MovieStore_API.Models.Item",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MovieStore_API.Controllers.ItemsController",
     "Method": "GetItemsByCartId",
     "RelativePath": "api/Items/{cartId}",
     "HttpMethod": "GET",
