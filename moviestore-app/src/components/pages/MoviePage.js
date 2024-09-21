@@ -3,14 +3,15 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 // React Bootstrap imports
-import { Container, Row, Col, Image, Button, Alert, Form, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Alert, Form } from 'react-bootstrap';
 
 // Internal imports
 import MoviesContext from '../../context/MoviesContext';
 import { compressImage } from '../../utils/compressImage';
-import { updateMovie, deleteMovie } from '../../services/movie-api';
+import { useMoviesApi } from '../../services/useMoviesApi';
 import Loading from '../common/Loading';
 import ConfirmationModal from '../common/ConfirmationModal';
+import EditMovieForm from '../movie/EditMovieForm';
 
 // CSS import
 import './movie-page.css';
@@ -19,6 +20,7 @@ const MoviePage = () => {
   const history = useHistory();
   const { productId } = useParams();
   const { movies, isLoading, refreshMovies } = useContext(MoviesContext);
+  const { updateMovie, deleteMovie } = useMoviesApi();
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [movie, setMovie] = useState(null);
@@ -82,16 +84,11 @@ const MoviePage = () => {
     }
   };
 
+
   const handleSave = async () => {
     try {
-      const response = await updateMovie(editedMovie);
-
-      if (response.status === 204) {
-        refreshMovies();
-        setIsEditing(false);
-      } else {
-        console.error('Failed to update the movie. Status:', response.status);
-      }
+      await updateMovie(editedMovie);
+      setIsEditing(false);
     } catch (error) {
       console.error('Error updating the movie:', error);
     }
@@ -112,8 +109,6 @@ const MoviePage = () => {
   const handleDelete = async () => {
     try {
       await deleteMovie(movie.productId);
-
-      refreshMovies();
       history.goBack();
       console.log('Movie deleted successfully');
     } catch (error) {
@@ -127,64 +122,17 @@ const MoviePage = () => {
     <Container className="movie-page">
       <Row className='py-4 movie-page-row'>
         <Col xs={12} sm={12} md={7} lg={6} xl={5} xxl={4}>
-          <Image src={imagePreview || image} alt={name} fluid className="movie-page-img" /> {/* Use the imagePreview */}
+          <Image src={imagePreview || image} alt={name} fluid className="movie-page-img" />
         </Col>
         <Col xs={12} sm={12} md={5} lg={6} xl={7} xxl={8}>
           {isEditing ? (
-            <>
-              <Form>
-                <Form.Group controlId="formMovieName">
-                  <Form.Label>Movie Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="name"
-                    value={editedMovie.name}
-                    onChange={handleInputChange}
-                  />
-                </Form.Group>
-                <Form.Group controlId="formMovieCategory">
-                  <Form.Label>Category</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="category"
-                    value={editedMovie.category}
-                    onChange={handleInputChange}
-                  />
-                </Form.Group>
-                <Form.Group controlId="formMoviePrice">
-                  <Form.Label>Price</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="price"
-                    value={editedMovie.price}
-                    onChange={handleInputChange}
-                  />
-                </Form.Group>
-                <Form.Group controlId="formMovieDescription">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    name="description"
-                    value={editedMovie.description}
-                    onChange={handleInputChange}
-                  />
-                </Form.Group>
-                <Form.Group controlId="formMovieImage">
-                  <Form.Label>Upload Image</Form.Label>
-                  <Form.Control
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                  />
-                </Form.Group>
-              </Form>
-              <Button variant="warning" className="me-2" onClick={handleSave}>
-                Save
-              </Button>
-              <Button variant="secondary" onClick={handleCancel}>
-                Cancel
-              </Button>
-            </>
+            <EditMovieForm
+              editedMovie={editedMovie}
+              handleInputChange={handleInputChange}
+              handleImageChange={handleImageChange}
+              handleSave={handleSave}
+              handleCancel={handleCancel}
+            />
           ) : (
             <>
               <hr />

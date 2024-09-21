@@ -1,28 +1,36 @@
+// components/UserCard.js
+
 import React from 'react';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import './user-card.css';
+import { Card, Row, Col, Image } from 'react-bootstrap';
+import { FaUser } from 'react-icons/fa';
 
-const MovieCard = ({ movie }) => {
-  const { productId, image, name, category, price } = movie;
-
-  return (
-    <Link to={`/movies/${productId}`} style={{ textDecoration: 'none' }}>
-      <Card className="little-movie-card" role="button">
-        <Card.Img
-          variant="top"
-          src={image}
-          alt={name}
-          className="movie-card-img"
-        />
-        <Card.Body className="movie-card-body">
-          <Card.Title as="h5">{name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">{category}</Card.Subtitle>
-          <Card.Text>${price}</Card.Text>
-        </Card.Body>
-      </Card>
-    </Link>
-  );
+const UserCard = ({ user }) => {
+    return (
+        <Card className="p-4 shadow-lg">
+            <Row className="text-center mb-4">
+                <Col>
+                    {user.profilePicture ? (
+                        <Image
+                            src={user.profilePicture}
+                            roundedCircle
+                            width="150"
+                            height="150"
+                            alt="Profile"
+                            className="border border-dark"
+                        />
+                    ) : (
+                        <FaUser size={150} className="text-muted" />
+                    )}
+                </Col>
+            </Row>
+            <Row className="text-center">
+                <Col>
+                    <h3>{user.username || 'Unknown User'}</h3>
+                    <p>{user.email || 'No Email Provided'}</p>
+                </Col>
+            </Row>
+        </Card>
+    );
 };
 
-export default MovieCard;
+export default UserCard;

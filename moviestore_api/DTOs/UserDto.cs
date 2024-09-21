@@ -17,5 +17,6 @@ namespace MovieStore_API.Models
         public string? Email { get; set; }
         public string? ProfilePicture { get; set; }
         public string? UserType { get; set; }
+
     }
 }

@@ -1,0 +1,522 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\moviestore_api.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:moviestore_api.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\AppData\\Roaming\\Microsoft\\UserSecrets\\9596ca22-9bb9-4d6f-83ab-0fee92369e35\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\controllers\\itemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:controllers\\itemscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\controllers\\cartscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:controllers\\cartscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\services\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:services\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\dtos\\itemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:dtos\\itemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\models\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:models\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\data\\moviestoredbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:data\\moviestoredbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\migrations\\moviestoredbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:migrations\\moviestoredbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\dtos\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:dtos\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\MovieStore_Backup\\MovieStore\\moviestore_api\\Migrations\\20240918193428_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\moviestore_api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:moviestore_api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\AppData\\Local\\Temp\\TFSTemp\\vctmp17492_121201.Program.00000000.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|c:\\users\\user\\desktop\\moviestore\\moviestore\\moviestore_api\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5219908D-362E-453F-B5E7-09381D9E7F3C}|MovieStore_api.csproj|solutionrelative:appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MovieStore_api",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\MovieStore_api.csproj",
+              "RelativeDocumentMoniker": "MovieStore_api.csproj",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\MovieStore_api.csproj",
+              "RelativeToolTip": "MovieStore_api.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-09-21T16:58:22.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAcwD0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "Controllers\\ProductsController.cs",
+              "ViewState": "AQIAAIEAAAAAAAAAAAAiwIwAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "Controllers\\OrdersController.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAIA8wE8AAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.22Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-21T14:49:39.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MovieStoreDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Data\\MovieStoreDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\MovieStoreDbContext.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Data\\MovieStoreDbContext.cs",
+              "RelativeToolTip": "Data\\MovieStoreDbContext.cs",
+              "ViewState": "AQIAAOIAAAAAAAAAAIBJwPUAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.228Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ItemDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\ItemDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\ItemDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\ItemDto.cs",
+              "RelativeToolTip": "DTOs\\ItemDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAIBJwAMAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "secrets.json",
+              "DocumentMoniker": "C:\\Users\\User\\AppData\\Roaming\\Microsoft\\UserSecrets\\9596ca22-9bb9-4d6f-83ab-0fee92369e35\\secrets.json",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\9596ca22-9bb9-4d6f-83ab-0fee92369e35\\secrets.json",
+              "ToolTip": "C:\\Users\\User\\AppData\\Roaming\\Microsoft\\UserSecrets\\9596ca22-9bb9-4d6f-83ab-0fee92369e35\\secrets.json",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\9596ca22-9bb9-4d6f-83ab-0fee92369e35\\secrets.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-16T16:15:17.979Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-21T14:49:39.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Controllers\\LoginController.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAYwBgAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ItemsController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\ItemsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ItemsController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\ItemsController.cs",
+              "RelativeToolTip": "Controllers\\ItemsController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAD4vyEAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.205Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CartsController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\CartsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CartsController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\CartsController.cs",
+              "RelativeToolTip": "Controllers\\CartsController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Logger.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Services\\Logger.cs",
+              "RelativeDocumentMoniker": "Services\\Logger.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Services\\Logger.cs",
+              "RelativeToolTip": "Services\\Logger.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.234Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Item.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\Item.cs",
+              "RelativeDocumentMoniker": "Models\\Item.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\Item.cs",
+              "RelativeToolTip": "Models\\Item.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAgwAsAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MovieStoreDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Migrations\\MovieStoreDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "Migrations\\MovieStoreDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Migrations\\MovieStoreDbContextModelSnapshot.cs",
+              "RelativeToolTip": "Migrations\\MovieStoreDbContextModelSnapshot.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.241Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Cart.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\Cart.cs",
+              "RelativeDocumentMoniker": "Models\\Cart.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\Cart.cs",
+              "RelativeToolTip": "Models\\Cart.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "Models\\Product.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\Product.cs",
+              "RelativeToolTip": "Models\\Product.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAkwCEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.272Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\LoginDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\LoginDto.cs",
+              "RelativeToolTip": "DTOs\\LoginDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.276Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAYwAwAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.279Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CartDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\CartDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\CartDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\CartDto.cs",
+              "RelativeToolTip": "DTOs\\CartDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBIAAABOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.282Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "20240918193428_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore_Backup\\MovieStore\\moviestore_api\\Migrations\\20240918193428_InitialCreate.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\MovieStore_Backup\\MovieStore\\moviestore_api\\Migrations\\20240918193428_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore_Backup\\MovieStore\\moviestore_api\\Migrations\\20240918193428_InitialCreate.cs",
+              "RelativeToolTip": "..\\..\\..\\MovieStore_Backup\\MovieStore\\moviestore_api\\Migrations\\20240918193428_InitialCreate.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-18T19:34:29.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MovieStore_api.csproj",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\MovieStore_api.csproj",
+              "RelativeDocumentMoniker": "MovieStore_api.csproj",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\MovieStore_api.csproj",
+              "RelativeToolTip": "MovieStore_api.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-09-21T14:49:39.293Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "UserDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\UserDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\UserDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\UserDto.cs",
+              "RelativeToolTip": "DTOs\\UserDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.448Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ProductDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\ProductDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\ProductDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\ProductDto.cs",
+              "RelativeToolTip": "DTOs\\ProductDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\WeatherForecast.cs",
+              "RelativeToolTip": "WeatherForecast.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.46Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "vctmp17492_121201.Program.00000000.cs",
+              "DocumentMoniker": "C:\\Users\\User\\AppData\\Local\\Temp\\TFSTemp\\vctmp17492_121201.Program.00000000.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\TFSTemp\\vctmp17492_121201.Program.00000000.cs",
+              "ToolTip": "C:\\Users\\User\\AppData\\Local\\Temp\\TFSTemp\\vctmp17492_121201.Program.00000000.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\TFSTemp\\vctmp17492_121201.Program.00000000.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAuwCYAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-07T18:47:54.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "OrderDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\OrderDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\OrderDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\DTOs\\OrderDto.cs",
+              "RelativeToolTip": "DTOs\\OrderDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBMAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.467Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "Models\\Order.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Models\\Order.cs",
+              "RelativeToolTip": "Models\\Order.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-21T14:49:39.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "appsettings.Development.json",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\appsettings.Development.json",
+              "RelativeToolTip": "appsettings.Development.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-21T14:49:39.475Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "appsettings.Production.json",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\appsettings.Production.json",
+              "RelativeDocumentMoniker": "appsettings.Production.json",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\appsettings.Production.json",
+              "RelativeToolTip": "appsettings.Production.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-21T14:49:39.479Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

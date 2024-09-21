@@ -25,10 +25,5 @@ namespace MovieStore_API.DTOs
         [Required]
         public string Category { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
-
-        [JsonIgnore]
-        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

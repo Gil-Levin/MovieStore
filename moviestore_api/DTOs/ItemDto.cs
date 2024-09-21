@@ -15,5 +15,6 @@ namespace MovieStore_API.DTOs
 
         [Required]
         public int Quantity { get; set; }
+
     }
 }

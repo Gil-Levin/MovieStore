@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from 'react-bootstrap/Spinner';
+import { Spinner } from 'react-bootstrap';
 
 function Loading() {
   const containerStyle = {
@@ -7,7 +7,7 @@ function Loading() {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '-30vw',
-    fontSize: '5vw',
+    fontSize: '3vw',
     zIndex: '-1',
   };
 

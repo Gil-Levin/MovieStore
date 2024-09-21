@@ -9,5 +9,6 @@ namespace MovieStore_API.DTOs
 
         [Required]
         public string? Password { get; set; }
+
     }
 }

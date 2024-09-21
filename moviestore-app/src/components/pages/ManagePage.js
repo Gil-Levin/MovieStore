@@ -1,60 +1,72 @@
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import React, { useState } from 'react';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import React, { useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 // Tables
 import MoviesTable from '../movie/MoviesTable';
 import UsersTable from '../user/UsersTable';
 import OrdersTable from '../order/OrdersTable';
 
+const tabs = {
+  movies: {
+    path: '/manage/movies',
+    component: <MoviesTable />,
+    title: 'Movie Store - Manage Movies',
+  },
+  users: {
+    path: '/manage/users',
+    component: <UsersTable />,
+    title: 'Movie Store - Manage Users',
+  },
+  orders: {
+    path: '/manage/orders',
+    component: <OrdersTable />,
+    title: 'Movie Store - Manage Orders',
+  },
+};
+
 const ManagePage = () => {
-    const [activeTab, setActiveTab] = useState('movies');
+  const history = useHistory();
+  const { pathname } = useLocation();
+  const activeTab = Object.keys(tabs).find((key) => pathname === tabs[key].path) || '';
 
-    const renderTable = () => {
-        switch (activeTab) {
-            case 'movies':
-                return <MoviesTable />;
-            case 'users':
-                return <UsersTable />;
-            case 'orders':
-                return <OrdersTable />;
-            default:
-                return null;
-        }
-    };
+  useEffect(() => {
+    document.title = tabs[activeTab]?.title || 'Movie Store - Manage';
+  }, [activeTab]);
 
-    return (
-        <Container fluid>
-            <Row className="mb-3">
-                <Col>
-                    <Button
-                        variant={activeTab === 'movies' ? 'warning' : 'secondary'}
-                        onClick={() => setActiveTab('movies')}
-                    >
-                        Show Movies
-                    </Button>
-                    <Button
-                        variant={activeTab === 'users' ? 'warning' : 'secondary'}
-                        onClick={() => setActiveTab('users')}
-                        className="ms-2"
-                    >
-                        Show Users
-                    </Button>
-                    <Button
-                        variant={activeTab === 'orders' ? 'warning' : 'secondary'}
-                        onClick={() => setActiveTab('orders')}
-                        className="ms-2"
-                    >
-                        Show Orders
-                    </Button>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    {renderTable()}
-                </Col>
-            </Row>
-        </Container>
-    );
+  const handleTabChange = (tab) => {
+    history.push(tabs[tab].path);
+  };
+
+  return (
+    <Container fluid>
+      <Row className="mb-3 justify-content-center">
+        <Col className="welcome-section text-center py-5 bg-warning m-4 rounded">
+          <h1 className="display-4">Welcome, Admin!</h1>
+          <hr />
+          <h2 className="lead">
+            Manage your movies, users, and orders from this page.
+          </h2>
+          <hr />
+          <p>Which table do you want to manage?</p>
+          {Object.keys(tabs).map((tab) => (
+            <Button
+              key={tab}
+              variant={activeTab === tab ? 'warning' : 'secondary'}
+              onClick={() => handleTabChange(tab)}
+              className={activeTab === tab ? 'mx-2 fw-bold' : 'mx-2'}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </Button>
+          ))}
+        </Col>
+      </Row>
+      <Row>
+        <Col>{tabs[activeTab]?.component}</Col>
+      </Row>
+    </Container>
+
+  );
 };
 
 export default ManagePage;
