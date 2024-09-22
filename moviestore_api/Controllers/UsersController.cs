@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MovieStore_API.Data;
 using MovieStore_API.Models;
+using MovieStore_API.Repositories;
+using MovieStore_API.Repositories.UserRepo;
+using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MovieStore_API.Controllers
 {
@@ -12,36 +15,36 @@ namespace MovieStore_API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly MovieStoreDbContext _context;
+        private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
-        public UsersController(MovieStoreDbContext context, IConfiguration configuration)
+        public UsersController(IUserRepository userRepository, IConfiguration configuration)
         {
-            _context = context;
+            _userRepository = userRepository;
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _userRepository.GetAllUsersAsync();
             if (users == null || !users.Any())
             {
                 return NotFound("No users found.");
             }
-            return users;
+            return Ok(users);
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userRepository.GetUserByIdAsync(id);
             if (user == null)
             {
                 return NotFound($"User with ID {id} not found.");
             }
-            return user;
+            return Ok(user);
         }
 
         [AllowAnonymous]
@@ -53,33 +56,24 @@ namespace MovieStore_API.Controllers
                 return BadRequest("User ID mismatch.");
             }
 
-            var existingUserName = await _context.Users
-                .Where(u => u.Username == user.Username && u.UserId != id)
-                .FirstOrDefaultAsync();
-
-            if (existingUserName != null)
+            var (usernameExists, emailExists) = await _userRepository.CheckIfExistsAsync(user.Username, user.Email);
+            if (usernameExists)
             {
                 return Conflict(new { message = "Username is already taken." });
             }
 
-            var existingEmail = await _context.Users
-                .Where(u => u.Email == user.Email && u.UserId != id)
-                .FirstOrDefaultAsync();
-
-            if (existingEmail != null)
+            if (emailExists)
             {
                 return Conflict(new { message = "Email is already taken." });
             }
 
-            _context.Entry(user).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _userRepository.UpdateUserAsync(user);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!await _userRepository.UserExistsAsync(id))
                 {
                     return NotFound($"User with ID {id} not found.");
                 }
@@ -89,8 +83,7 @@ namespace MovieStore_API.Controllers
                 }
             }
 
-            var updatedUser = await _context.Users.FindAsync(id);
-
+            var updatedUser = await _userRepository.GetUserByIdAsync(id);
             if (updatedUser == null)
             {
                 return NotFound($"User with ID {id} not found.");
@@ -103,9 +96,7 @@ namespace MovieStore_API.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            var usernameExists = await _context.Users.AnyAsync(u => u.Username == user.Username);
-            var emailExists = await _context.Users.AnyAsync(u => u.Email == user.Email);
-
+            var (usernameExists, emailExists) = await _userRepository.CheckIfExistsAsync(user.Username, user.Email);
             if (usernameExists)
             {
                 return Conflict(new { message = "Username is already taken." });
@@ -117,24 +108,18 @@ namespace MovieStore_API.Controllers
             }
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
+            await _userRepository.AddUserAsync(user);
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var deleted = await _userRepository.DeleteUserAsync(id);
+            if (!deleted)
             {
                 return NotFound($"User with ID {id} not found.");
             }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -155,28 +140,21 @@ namespace MovieStore_API.Controllers
                 return BadRequest("Invalid user ID.");
             }
 
-            var user = await _context.Users.FindAsync(userId);
+            var user = await _userRepository.GetUserByIdAsync(userId);
             if (user == null)
             {
                 return NotFound($"User with ID {userId} not found.");
             }
 
-            return user;
+            return Ok(user);
         }
 
         [AllowAnonymous]
         [HttpGet("check")]
         public async Task<IActionResult> CheckIfExists([FromQuery] string username, [FromQuery] string email)
         {
-            var usernameExists = await _context.Users.AnyAsync(u => u.Username == username);
-            var emailExists = await _context.Users.AnyAsync(u => u.Email == email);
-
+            var (usernameExists, emailExists) = await _userRepository.CheckIfExistsAsync(username, email);
             return Ok(new { usernameExists, emailExists });
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.UserId == id);
         }
     }
 }

@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MovieStore_API.Data;
+using MovieStore_api.Repositories.LoginRepo;
 using MovieStore_API.DTOs;
 using MovieStore_API.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using System.Security.Cryptography;
-using Microsoft.Extensions.Logging;
+using System.Text;
 
 namespace MovieStore_API.Controllers
 {
@@ -17,13 +15,13 @@ namespace MovieStore_API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly MovieStoreDbContext _context;
+        private readonly ILoginRepository _loginRepository;
         private readonly IConfiguration _configuration;
         private readonly ILogger<LoginController> _logger;
 
-        public LoginController(MovieStoreDbContext context, IConfiguration configuration, ILogger<LoginController> logger)
+        public LoginController(ILoginRepository loginRepository, IConfiguration configuration, ILogger<LoginController> logger)
         {
-            _context = context;
+            _loginRepository = loginRepository ?? throw new ArgumentNullException(nameof(loginRepository));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _logger = logger;
         }
@@ -38,7 +36,7 @@ namespace MovieStore_API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
+            var user = await _loginRepository.GetUserByEmailAsync(loginDto.Email);
 
             if (user == null)
             {

@@ -1,7 +1,16 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MovieStore_api.Repositories.ItemsRepo;
+using MovieStore_api.Repositories.LoginRepo;
 using MovieStore_API.Data;
+using MovieStore_API.Repositories.CartsRepo;
+using MovieStore_API.Repositories.ItemsRepo;
+using MovieStore_API.Repositories.LoginRepo;
+using MovieStore_API.Repositories.OrderRepo;
+using MovieStore_API.Repositories.ProductRepo;
+using MovieStore_API.Repositories.Repo.CartsRepo;
+using MovieStore_API.Repositories.UserRepo;
 using System.Text;
 
 namespace MovieStore_API
@@ -24,6 +33,14 @@ namespace MovieStore_API
                 options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
                 new MySqlServerVersion(new Version(8, 0, 29)));
             });
+
+            // Add repositories
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
+            builder.Services.AddScoped<IItemRepository, ItemRepository>();
+            builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

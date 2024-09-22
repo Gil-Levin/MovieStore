@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MovieStore_API.Data;
 using MovieStore_API.Models;
+using MovieStore_API.Repositories.ItemsRepo;
+using MovieStore_API.Repositories.ProductRepo;
 
 namespace MovieStore_API.Controllers
 {
@@ -11,56 +12,45 @@ namespace MovieStore_API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly MovieStoreDbContext _context;
+        private readonly IProductRepository _productRepository;
         private readonly ILogger<ProductsController> _logger;
+        private readonly IItemRepository _itemRepository;
 
-        public ProductsController(MovieStoreDbContext context, ILogger<ProductsController> logger)
+
+        public ProductsController(IProductRepository productRepository, IItemRepository itemRepository, ILogger<ProductsController> logger)
         {
-            _context = context;
+            _productRepository = productRepository;
             _logger = logger;
+            _itemRepository = itemRepository;
+
         }
 
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            if (_context.Products == null)
+            var products = await _productRepository.GetAllProductsAsync();
+            if (products == null)
             {
-                _logger.LogWarning("Products set is null.");
+                _logger.LogWarning("No products found.");
                 return NotFound();
             }
-            return await _context.Products.ToListAsync();
+
+            return Ok(products);
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            if (_context.Products == null)
-            {
-                _logger.LogWarning("Products set is null.");
-                return NotFound();
-            }
-
-            var product = await _context.Products.FindAsync(id);
-
+            var product = await _productRepository.GetProductByIdAsync(id);
             if (product == null)
             {
                 _logger.LogWarning($"Product with ID {id} not found.");
                 return NotFound();
             }
 
-            var productDto = new Product
-            {
-                ProductId = product.ProductId,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                Image = product.Image,
-                Category = product.Category
-            };
-
-            return Ok(productDto);
+            return Ok(product);
         }
 
         [AllowAnonymous]
@@ -73,22 +63,19 @@ namespace MovieStore_API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _productRepository.UpdateProductAsync(product);
             }
-            catch (DbUpdateConcurrencyException ex)
+            catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!await _productRepository.ProductExistsAsync(id))
                 {
                     _logger.LogWarning($"Product with ID {id} not found.");
                     return NotFound();
                 }
                 else
                 {
-                    _logger.LogError($"Error occurred while updating product with ID {id}: {ex.Message}");
                     throw;
                 }
             }
@@ -101,44 +88,26 @@ namespace MovieStore_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            if (_context.Products == null)
-            {
-                _logger.LogWarning("Products set is null.");
-                return Problem("Entity set 'MovieStoreDbContext.Products' is null.");
-            }
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-
+            await _productRepository.AddProductAsync(product);
             _logger.LogInformation($"Product with ID {product.ProductId} created successfully.");
-            return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
         }
 
         [AllowAnonymous]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            if (_context.Products == null)
-            {
-                _logger.LogWarning("Products set is null.");
-                return NotFound();
-            }
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productRepository.GetProductByIdAsync(id);
+
             if (product == null)
             {
-                _logger.LogWarning($"Product with ID {id} not found.");
                 return NotFound();
             }
+            await _itemRepository.RemoveProductFromItemsAsync(id);
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            await _productRepository.DeleteProductAsync(id);
 
-            _logger.LogInformation($"Product with ID {id} deleted successfully.");
             return NoContent();
-        }
-
-        private bool ProductExists(int id)
-        {
-            return (_context.Products?.Any(e => e.ProductId == id)).GetValueOrDefault();
         }
     }
 }
