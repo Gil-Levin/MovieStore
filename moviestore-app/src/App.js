@@ -1,62 +1,59 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+// Context
+import { AuthProvider } from './context/AuthContext';
+import { UsersProvider } from './context/UsersContext';
+import { CartItemsProvider } from './context/CartItemsContext';
+import { MoviesProvider } from './context/MoviesContext';
+import { OrdersProvider } from './context/OrdersContext';
+
 // Common
 import NavBar from './components/common/NavBar';
 
-// Context
-import { MoviesProvider } from './context/MoviesContext';
-import { UsersProvider } from './context/UsersContext';
-import { OrdersProvider } from './context/OrdersContext';
-import { CartItemsProvider } from './context/CartItemsContext';
+// Routes
+import AuthenticatedRoute from './routes/AuthenticatedRoute';
+import AuthorizedRoute from './routes/AuthorizedRoute';
 
 // Pages
 import HomePage from './components/pages/HomePage';
+import LoginPage from './components/pages/LoginPage';
+import AboutPage from './components/pages/AboutPage';
+import NotFoundPage from './components/pages/NotFoundPage';
+import ProfilePage from './components/pages/ProfilePage';
 import MoviesPage from './components/pages/MoviesPage';
 import MoviePage from './components/pages/MoviePage';
-import UserPage from './components/pages/UserPage';
-import AboutPage from './components/pages/AboutPage';
 import ManagePage from './components/pages/ManagePage';
-import ProfilePage from './components/pages/ProfilePage';
-import NotFoundPage from './components/pages/NotFoundPage';
-import LoginPage from './components/pages/LoginPage';
-
-// unorganized
-import Register from './pages/Register';
-import Unauthorized from './pages/Unauthorized';
-import { AuthProvider } from './context/authContext';
-import ProtectedRoute from './components/protectedRoute';
+import UserPage from './components/pages/UserPage';
 
 function App() {
   return (
     <AuthProvider>
-      <MoviesProvider>
-        <UsersProvider>
-          <CartItemsProvider>
+      <UsersProvider>
+        <CartItemsProvider>
+          <MoviesProvider>
             <OrdersProvider>
               <Router>
-                <div>
-                  <NavBar />
-                  <Switch>
-                    <Route path="/" exact component={HomePage} />
-                    <Route path="/movies" exact component={MoviesPage} />
-                    <Route path="/movies/:productId" exact component={MoviePage} />
-                    <Route path="/about" exact component={AboutPage} />
-                    <ProtectedRoute path="/manage" component={ManagePage} />
-                    <ProtectedRoute path="/users/:userId" component={UserPage} />
-                    <Route path="/profile" exact component={ProfilePage} />
-                    <Route path="/login" exact component={LoginPage} />
+                <NavBar />
+                <Switch>
+                  <Route path="/" exact component={HomePage} />
+                  <Route path="/login" exact component={LoginPage} />
+                  <Route path="/about" exact component={AboutPage} />
 
-                    <Route path="/register" component={Register} />
-                    <Route path="/unauthorized" component={Unauthorized} />
-                    <Route component={NotFoundPage} />
-                  </Switch>
-                </div>
+                  <AuthenticatedRoute path="/movies" exact component={MoviesPage} />
+                  <AuthenticatedRoute path="/movies/:productId" exact component={MoviePage} />
+                  <AuthenticatedRoute path="/profile" exact component={ProfilePage} />
+
+                  <AuthorizedRoute path="/manage" component={ManagePage} />
+                  <AuthorizedRoute path="/users/:userId" component={UserPage} />
+
+                  <Route component={NotFoundPage} />
+                </Switch>
               </Router>
             </OrdersProvider>
-          </CartItemsProvider>
-        </UsersProvider>
-      </MoviesProvider>
+          </MoviesProvider>
+        </CartItemsProvider>
+      </UsersProvider>
     </AuthProvider>
   );
 }

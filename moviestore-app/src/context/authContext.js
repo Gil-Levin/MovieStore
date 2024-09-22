@@ -5,97 +5,54 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('token') !== null;
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    return token && user !== null;
   });
 
-  const [userType, setUserType] = useState(() => {
+  const [isAuthorized, setIsAuthorized] = useState(() => {
     const storedUser = localStorage.getItem('user');
     try {
-      return storedUser ? JSON.parse(storedUser).userType : null;
+      const user = storedUser ? JSON.parse(storedUser) : {};
+      return user.userType === 'Admin';
     } catch (error) {
       console.error('Error parsing user from localStorage:', error);
-      return null;
+      return false;
     }
   });
 
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = (token, user) => {
-    setIsAuthenticated(true);
-    setUserType(user.userType);
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+  const login = async (email, password) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post('http://localhost:7178/api/Login', { email, password });
+      const { token, user } = response.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      setIsAuthenticated(true);
+      setIsAuthorized(user.userType === 'Admin');
+    } catch (error) {
+      console.error('Login error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setIsAuthenticated(false);
-    setUserType(null);
-  };
-
-  const fetchUsers = async () => {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      console.error('No token found');
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const response = await axios.get('http://localhost:7178/api/Users', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setUsers(response.data);
-
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        logout();
-        window.location.href = '/login';
-      } else {
-        console.error('Error fetching users:', error);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const updateUser = async (updatedUser) => {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      console.error('No token found');
-      return;
-    }
-
-    try {
-      await axios.put(`http://localhost:7178/api/Users/${updatedUser.userId}`, updatedUser, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      await fetchUsers();
-
-    } catch (error) {
-      console.error('Error updating user:', error);
-    }
+    setIsAuthorized(false);
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchUsers();
-    }
+    setIsLoading(false);
   }, [isAuthenticated]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userType, login, logout, users, loading, setUsers, fetchUsers, updateUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, isAuthorized, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

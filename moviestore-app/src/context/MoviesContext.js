@@ -28,7 +28,7 @@ export const MoviesProvider = ({ children }) => {
   }, [fetchMovies]);
 
   return (
-    <MoviesContext.Provider value={{ movies, isLoading, refreshMovies: fetchMovies }}>
+    <MoviesContext.Provider value={{ movies, setMovies, isLoading, refreshMovies: fetchMovies }}>
       {children}
     </MoviesContext.Provider>
   );

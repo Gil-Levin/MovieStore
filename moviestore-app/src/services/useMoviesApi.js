@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useContext } from 'react';
 import MoviesContext from '../context/MoviesContext';
+import CartItemsContext from '../context/CartItemsContext';
 
 const API_URL = 'http://localhost:7178/api/products';
 const headers = () => ({
@@ -9,7 +10,8 @@ const headers = () => ({
 });
 
 export const useMoviesApi = () => {
-  const { refreshMovies } = useContext(MoviesContext);
+  const { setMovies, refreshMovies } = useContext(MoviesContext);
+  const { setCartItems } = useContext(CartItemsContext);
 
   const updateMovie = async (movie) => {
     try {
@@ -23,7 +25,8 @@ export const useMoviesApi = () => {
   const deleteMovie = async (productId) => {
     try {
       await axios.delete(`${API_URL}/${productId}`, { headers: headers() });
-      refreshMovies();
+      setMovies((prevMovies) => prevMovies.filter(movie => movie.productId !== productId));
+      setCartItems((prevCartItems) => prevCartItems.filter(item => item.productId !== productId));
     } catch (error) {
       console.error('Failed to delete movie:', error);
     }

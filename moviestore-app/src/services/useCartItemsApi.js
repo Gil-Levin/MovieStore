@@ -9,12 +9,18 @@ const headers = () => ({
 });
 
 export const useCartItemsApi = () => {
-  const { refreshCartItems } = useContext(CartItemsContext);
+  const { refreshCartItems, setCartItems } = useContext(CartItemsContext);
 
-  const updateItem = async (item) => {
+  const updateItem = async (updatedProperties) => {
     try {
-      await axios.put(`${API_URL}/${item.ItemID}`, item, { headers: headers() });
-      refreshCartItems();
+      await axios.put(`${API_URL}/${updatedProperties.itemID}`, updatedProperties, { headers: headers() });
+      setCartItems((prevItems) =>
+        prevItems.map(item =>
+          item.itemID === updatedProperties.itemID
+            ? { ...item, ...updatedProperties }
+            : item
+        )
+      );
     } catch (error) {
       console.error('Failed to update item:', error);
     }
@@ -23,7 +29,7 @@ export const useCartItemsApi = () => {
   const deleteItem = async (itemId) => {
     try {
       await axios.delete(`${API_URL}/${itemId}`, { headers: headers() });
-      refreshCartItems();
+      setCartItems((prevItems) => prevItems.filter(item => item.itemID !== itemId));
     } catch (error) {
       console.error('Failed to delete item:', error);
     }

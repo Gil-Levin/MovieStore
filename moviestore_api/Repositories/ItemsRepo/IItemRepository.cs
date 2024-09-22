@@ -11,5 +11,6 @@ namespace MovieStore_API.Repositories.ItemsRepo
         Task DeleteItemAsync(int id);
         Task<bool> ItemExistsAsync(int id);
         Task RemoveProductFromItemsAsync(int productId);
+        Task<Item> GetItemByProductIdAndCartIdAsync(int productId, int cartId);
     }
 }

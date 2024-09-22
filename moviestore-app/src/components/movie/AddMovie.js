@@ -1,4 +1,4 @@
-import movieImagePlaceholder from '../../assets/images/movie-placeholder.jpeg';
+import movieImagePlaceholder from '../../images/movie-placeholder.jpeg';
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useMoviesApi } from '../../services/useMoviesApi';

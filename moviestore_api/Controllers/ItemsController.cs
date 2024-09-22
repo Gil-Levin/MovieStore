@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieStore_API.DTOs;
+using moviestore_dal.DTOs;
 using MovieStore_API.Models;
-using MovieStore_API.Repositories;
 using MovieStore_API.Repositories.ItemsRepo;
+using MovieStore_API.Repositories.ProductRepo;
+using MovieStore_api.DTOs;
 
 namespace MovieStore_API.Controllers
 {
@@ -13,28 +14,45 @@ namespace MovieStore_API.Controllers
     public class ItemsController : ControllerBase
     {
         private readonly IItemRepository _itemRepository;
+        private readonly IProductRepository _productRepository;
         private readonly ILogger<ItemsController> _logger;
 
-        public ItemsController(IItemRepository itemRepository, ILogger<ItemsController> logger)
+        public ItemsController(IItemRepository itemRepository, IProductRepository productRepository, ILogger<ItemsController> logger)
         {
             _itemRepository = itemRepository;
+            _productRepository = productRepository;
             _logger = logger;
         }
 
         // GET: api/Items/{cartId}
         [AllowAnonymous]
         [HttpGet("{cartId}")]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItemsByCartId(int cartId)
+        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetItemsByCartId(int cartId)
         {
+            // Fetch the items by CartId
             var items = await _itemRepository.GetItemsByCartIdAsync(cartId);
             if (items == null || !items.Any())
             {
-                _logger.LogWarning($"No items found for cartId: {cartId}");
+                _logger.LogWarning("No items found for CartId: {CartId}", cartId);
                 return NotFound();
             }
 
-            _logger.LogInformation($"Returning items for cartId: {cartId}");
-            return Ok(items);
+            // Convert the list of items to CartItemDto including Product details
+            var cartItems = items.Select(item => new CartItemDto
+            {
+                ItemID = item.ItemID,
+                CartId = item.CartId,
+                ProductID = item.ProductID,
+                ProductName = item.Product.Name,
+                ProductDescription = item.Product.Description,
+                ProductPrice = item.Product.Price,
+                ProductImage = item.Product.Image,
+                ProductCategory = item.Product.Category,
+                Quantity = item.Quantity
+            }).ToList();
+
+            _logger.LogInformation("Returning items for CartId: {CartId}", cartId);
+            return Ok(cartItems);
         }
 
         // PUT: api/Items/{id}
@@ -44,15 +62,15 @@ namespace MovieStore_API.Controllers
         {
             if (id != updatedItemDto.ItemID)
             {
-                _logger.LogWarning("Invalid item ID for update.");
-                return BadRequest();
+                _logger.LogWarning($"Item ID {updatedItemDto.ItemID} doesn't match the link 'items/{id}'.");
+                return BadRequest($"Item ID {updatedItemDto.ItemID} doesn't match the link 'items/{id}'.");
             }
 
             var existingItem = await _itemRepository.GetItemByIdAsync(id);
             if (existingItem == null)
             {
-                _logger.LogWarning($"Item not found for ID: {id}");
-                return NotFound();
+                _logger.LogWarning($"Item with ID {id} not found.");
+                return NotFound($"Item with ID {id} not found.");
             }
 
             existingItem.Quantity = updatedItemDto.Quantity;
@@ -60,20 +78,18 @@ namespace MovieStore_API.Controllers
             try
             {
                 await _itemRepository.UpdateItemAsync(existingItem);
-                _logger.LogInformation($"Item {id} updated successfully.");
+                _logger.LogInformation("Item {Id} updated successfully.", id);
             }
             catch
             {
                 if (!await _itemRepository.ItemExistsAsync(id))
                 {
-                    _logger.LogWarning($"Item with ID: {id} does not exist.");
+                    _logger.LogWarning("Item with ID: {Id} does not exist.", id);
                     return NotFound();
                 }
-                else
-                {
-                    _logger.LogError($"Concurrency issue while updating item with ID: {id}");
-                    throw;
-                }
+
+                _logger.LogError("Concurrency issue while updating Item with ID: {Id}.", id);
+                throw;
             }
 
             return NoContent();
@@ -87,12 +103,12 @@ namespace MovieStore_API.Controllers
             var item = await _itemRepository.GetItemByIdAsync(id);
             if (item == null)
             {
-                _logger.LogWarning($"Item not found for ID: {id}");
-                return NotFound();
+                _logger.LogWarning("Item not found for ID: {Id}", id);
+                return NotFound($"Item with ID {id} not found.");
             }
 
             await _itemRepository.DeleteItemAsync(id);
-            _logger.LogInformation($"Item {id} deleted successfully.");
+            _logger.LogInformation("Item {Id} deleted successfully.", id);
 
             return NoContent();
         }
@@ -102,23 +118,40 @@ namespace MovieStore_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Item>> CreateItem(ItemDto newItemDto)
         {
-            var productExists = await _itemRepository.ItemExistsAsync(newItemDto.ProductID); // Ensure this check is on the repository side
-            if (!productExists)
+            // Check if the product exists in the ProductRepository
+            if (!await _productRepository.ProductExistsAsync(newItemDto.ProductID))
             {
-                _logger.LogWarning($"Product with ID {newItemDto.ProductID} does not exist.");
+                _logger.LogWarning("Product with ID {ProductID} does not exist.", newItemDto.ProductID);
                 return NotFound($"Product with ID {newItemDto.ProductID} does not exist.");
             }
 
-            var item = new Item
+            // Check if the item with the same ProductID already exists in the cart
+            var existingItem = await _itemRepository.GetItemByProductIdAndCartIdAsync(newItemDto.ProductID, newItemDto.CartId);
+
+            if (existingItem != null)
+            {
+                // If the item exists, increment the quantity
+                existingItem.Quantity += newItemDto.Quantity;
+                await _itemRepository.UpdateItemAsync(existingItem);
+                _logger.LogInformation("Quantity updated for existing Item {ItemID} in CartId {CartId}.", existingItem.ItemID, newItemDto.CartId);
+                return Ok(existingItem); // Return the updated item
+            }
+
+            // Create a new Item if it doesn't exist
+            var newItem = new Item
             {
                 CartId = newItemDto.CartId,
                 ProductID = newItemDto.ProductID,
                 Quantity = newItemDto.Quantity
             };
 
-            await _itemRepository.AddItemAsync(item);
-            _logger.LogInformation($"Item {item.ItemID} created successfully.");
-            return CreatedAtAction(nameof(GetItemsByCartId), new { cartId = item.CartId }, item);
+            // Add the new item to the ItemRepository
+            await _itemRepository.AddItemAsync(newItem);
+            _logger.LogInformation("New Item {ItemID} created successfully in CartId {CartId}.", newItem.ItemID, newItemDto.CartId);
+
+            // Return the newly created item with a 201 Created response
+            return CreatedAtAction(nameof(GetItemsByCartId), new { cartId = newItem.CartId }, newItem);
         }
+
     }
 }

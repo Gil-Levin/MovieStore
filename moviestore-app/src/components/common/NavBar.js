@@ -1,58 +1,54 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import AuthContext from '../../context/authContext';
-import './nav-bar.css';
+import { Link } from 'react-router-dom';
+import { Navbar, Nav, Container, Spinner } from 'react-bootstrap';
+import { FaHome, FaFilm, FaUser, FaSignInAlt, FaSignOutAlt, FaTools, FaInfoCircle } from 'react-icons/fa';
+import AuthContext from '../../context/AuthContext';
+
+const logoPath = process.env.PUBLIC_URL + '/favicon/android-chrome-192x192.png';
 
 const NavBar = () => {
-  const { isAuthenticated, logout } = useContext(AuthContext);
-  const history = useHistory();
-  const userType = JSON.parse(localStorage.getItem('user'))?.userType || '';
-
-  const handleLogout = () => {
-    logout();
-    history.push('/');
-  };
+  const { isAuthenticated, isAuthorized, isLoading, logout } = useContext(AuthContext);
 
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <ul className="navbar-menu">
-          <li className="navbar-item">
-            <Link to="/" className="navbar-link">Home</Link>
-          </li>
-          <li className="navbar-item">
-            <Link to="/movies" className="navbar-link">Movies</Link>
-          </li>
-          {isAuthenticated && userType.toLowerCase() === 'admin' && (
-            <li className="navbar-item">
-              <Link to="/manage" className="navbar-link">Manage</Link>
-            </li>
-          )}
-          <li className="navbar-item">
-            <Link to="/about" className="navbar-link">About</Link>
-          </li>
-          {isAuthenticated ? (
-            <>
-              <li className="navbar-item">
-                <Link to="/profile" className="navbar-link">Profile</Link>
-              </li>
-              <li className="navbar-item">
-                <button className="navbar-button" onClick={handleLogout}>Logout</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="navbar-item">
-                <Link to="/login" className="navbar-link">Login</Link>
-              </li>
-              <li className="navbar-item">
-                <Link to="/register" className="navbar-link">Register</Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </div>
-    </nav>
+    <Navbar bg="light" expand="lg">
+      <Container>
+        <Navbar.Brand as={Link} to="/">
+          <img 
+            src={logoPath} 
+            alt="Movie Store Logo" 
+            width="30" 
+            height="30" 
+            className="d-inline-block align-top" 
+          />
+          {' Movie Store'}
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/" exact><FaHome /> Home</Nav.Link>
+            <Nav.Link as={Link} to="/movies"><FaFilm /> Movies</Nav.Link>
+            <Nav.Link as={Link} to="/about"><FaInfoCircle /> About</Nav.Link>
+            {isAuthenticated && (
+              <>
+                <Nav.Link as={Link} to="/profile"><FaUser /> Profile</Nav.Link>
+                {isAuthorized && (
+                  <Nav.Link as={Link} to="/manage"><FaTools /> Manage</Nav.Link>
+                )}
+              </>
+            )}
+          </Nav>
+          <Nav>
+            {isLoading ? (
+              <Spinner animation="border" size="sm" />
+            ) : isAuthenticated ? (
+              <Nav.Link onClick={logout}><FaSignOutAlt /> Logout</Nav.Link>
+            ) : (
+              <Nav.Link as={Link} to="/login"><FaSignInAlt /> Login</Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 

@@ -17,8 +17,8 @@ namespace MovieStore_api.Repositories.ItemsRepo
         public async Task<IEnumerable<Item>> GetItemsByCartIdAsync(int cartId)
         {
             return await _context.Items
-                .Where(i => i.CartId == cartId)
                 .Include(i => i.Product)
+                .Where(i => i.CartId == cartId)
                 .ToListAsync();
         }
 
@@ -58,6 +58,12 @@ namespace MovieStore_api.Repositories.ItemsRepo
             var itemsToRemove = await _context.Items.Where(i => i.ProductID == productId).ToListAsync();
             _context.Items.RemoveRange(itemsToRemove);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Item> GetItemByProductIdAndCartIdAsync(int productId, int cartId)
+        {
+            return await _context.Items
+                .FirstOrDefaultAsync(i => i.ProductID == productId && i.CartId == cartId);
         }
     }
 }

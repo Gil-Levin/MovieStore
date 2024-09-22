@@ -4,7 +4,7 @@ import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { useUsersApi } from '../../services/useUsersApi';
 import { compressImage } from '../../utils/compressImage';
 
-const AddUser = ({ show, handleClose }) => {
+const RegisterUser = ({ show, handleClose }) => {
     const { addUser } = useUsersApi();
     const [userDetails, setUserDetails] = useState({
         username: '',
@@ -41,7 +41,7 @@ const AddUser = ({ show, handleClose }) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Add New User</Modal.Title>
+                <Modal.Title>Welcome to the Movie Store!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -75,19 +75,6 @@ const AddUser = ({ show, handleClose }) => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="formUserType">
-                        <Form.Label>User Type</Form.Label>
-                        <Form.Control
-                            as="select"
-                            name="userType"
-                            value={userDetails.userType}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="Customer">Customer</option>
-                            <option value="Admin">Admin</option>
-                        </Form.Control>
-                    </Form.Group>
                     <Form.Group controlId="formProfilePicture">
                         <Form.Label>Profile Picture</Form.Label>
                         <Form.Control
@@ -106,13 +93,14 @@ const AddUser = ({ show, handleClose }) => {
                     </Form.Group>
                     <div className="d-flex justify-content-center">
                         <Button variant="warning" type="submit" className="m-2">
-                            Add User
+                            Register
                         </Button>
                     </div>
                 </Form>
             </Modal.Body>
         </Modal>
+
     );
 };
 
-export default AddUser;
+export default RegisterUser;

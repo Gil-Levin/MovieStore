@@ -1,51 +1,56 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Table, Container, Button, Alert } from 'react-bootstrap';
-import { FaSortUp, FaSortDown, FaSort } from 'react-icons/fa';
+import { FaSortUp, FaSortDown, FaSort, FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
-
 import CartItemsContext from '../../context/CartItemsContext';
-import MoviesContext from '../../context/MoviesContext';
 import Loading from '../common/Loading';
+import { useCartItemsApi } from '../../services/useCartItemsApi';
 import { sortItems } from '../../utils/sortItems';
+import QuantityChangeModal from './QuantityChangeModal';
 
 const CartTable = () => {
     const [sortConfig, setSortConfig] = React.useState({ key: null, direction: 'ascending' });
     const { cartItems, isLoading: cartLoading } = useContext(CartItemsContext);
-    const { movies, isLoading: moviesLoading } = useContext(MoviesContext);
     const history = useHistory();
+    const { deleteItem } = useCartItemsApi();
+    const [modalShow, setModalShow] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
 
     const sortCart = (key) => {
-        let direction = 'ascending';
-        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-            direction = 'descending';
-        }
-        setSortConfig({ key, direction });
+        setSortConfig((prev) => ({
+            key,
+            direction: prev.key === key && prev.direction === 'ascending' ? 'descending' : 'ascending',
+        }));
     };
 
     const getSortIcon = (key) => {
-        if (sortConfig.key !== key) {
-            return <FaSort />;
-        }
+        if (sortConfig.key !== key) return <FaSort />;
         return sortConfig.direction === 'ascending' ? <FaSortUp /> : <FaSortDown />;
     };
 
+    const handleDelete = async (itemId) => {
+        try {
+            await deleteItem(itemId);
+        } catch (error) {
+            console.error('Failed to delete item:', error);
+        }
+    };
+
+    const handleChangeQuantity = (item) => {
+        console.log(item);
+        setSelectedItem(item);
+        setModalShow(true);
+    };
+
     const sortedCartItems = sortItems(cartItems, sortConfig);
-    const matchingMovies = sortedCartItems.map(cartItem => ({
-        ...cartItem,
-        movie: movies.find(movie => movie.productId === cartItem.productId)
-    }));
 
-    const validItems = matchingMovies.filter(item => item.movie); // Filter only valid items
-
-    if (cartLoading || moviesLoading) {
-        return <Loading />;
-    }
+    if (cartLoading) return <Loading />;
 
     return (
         <Container>
-            {validItems.length === 0 ? (
+            {sortedCartItems.length === 0 ? (
                 <Alert variant="warning" className="text-center">
-                    <h3>There are no items in your cart!</h3>
+                    <h3>Your cart is empty!</h3>
                     <Button variant="warning" onClick={() => history.push('/movies')}>
                         Browse Movies
                     </Button>
@@ -55,35 +60,60 @@ const CartTable = () => {
                     <thead>
                         <tr>
                             <th>Image</th>
-                            <th onClick={() => sortCart('name')}>
-                                Name {getSortIcon('name')}
+                            <th onClick={() => sortCart('productName')}>
+                                Name {getSortIcon('productName')}
                             </th>
-                            <th onClick={() => sortCart('price')}>
-                                Price {getSortIcon('price')}
+                            <th onClick={() => sortCart('productPrice')}>
+                                Price {getSortIcon('productPrice')}
                             </th>
                             <th onClick={() => sortCart('quantity')}>
                                 Quantity {getSortIcon('quantity')}
                             </th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {validItems.map((item) => (
-                            <tr key={item.productId}>
+                        {sortedCartItems.map((item) => (
+                            <tr key={item.itemID}>
                                 <td>
                                     <img
-                                        src={item.movie?.image}
-                                        alt={item.movie?.name}
-                                        style={{ width: '20px', height: '30px' }}
+                                        src={item.productImage}
+                                        alt={item.productName}
+                                        style={{ width: '50px', height: '75px' }}
                                     />
                                 </td>
-                                <td>{item.movie?.name}</td>
-                                <td>${item.movie?.price}</td>
-                                <td>{item.quantity}</td>
+                                <td>{item.productName}</td>
+                                <td>${item.productPrice.toFixed(2)}</td>
+                                <td>
+                                    <Button variant="secondary" onClick={() => handleChangeQuantity(item)}>
+                                        {item.quantity} <FaEdit style={{ marginLeft: '8px' }} />
+                                    </Button>
+                                </td>
+                                <td>
+                                    <Button
+                                        variant="warning"
+                                        className="me-2"
+                                        onClick={() => history.push(`/movies/${item.productID}`)}
+                                    >
+                                        <FaEye style={{ marginRight: '5px' }} /> View
+                                    </Button>
+                                    <Button
+                                        variant="danger"
+                                        onClick={() => handleDelete(item.itemID)}
+                                    >
+                                        <FaTrash style={{ marginRight: '5px' }} /> Delete
+                                    </Button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </Table>
             )}
+            <QuantityChangeModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                cartItem={selectedItem}
+            />
         </Container>
     );
 };
