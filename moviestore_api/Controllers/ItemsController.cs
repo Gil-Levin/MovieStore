@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using moviestore_dal.DTOs;
+using MovieStore_API.DTOs;
 using MovieStore_API.Models;
 using MovieStore_API.Repositories.ItemsRepo;
 using MovieStore_API.Repositories.ProductRepo;
