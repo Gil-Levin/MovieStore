@@ -1,4 +1,3 @@
-// React and React Router imports
 import React, { useContext, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 

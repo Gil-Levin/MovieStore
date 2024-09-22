@@ -10,5 +10,7 @@ namespace MovieStore_API.Repositories.CartsRepo
         Task UpdateCartAsync(Cart cart);
         Task DeleteCartAsync(int id);
         Task<bool> CartExistsAsync(int id);
+        Task DeleteCartByUserIdAsync(int userId);
+
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Models;
 using MovieStore_API.Repositories;
+using MovieStore_API.Repositories.CartsRepo;
 using MovieStore_API.Repositories.UserRepo;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -16,11 +17,13 @@ namespace MovieStore_API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly ICartRepository _cartRepository;  // Added cart repository
         private readonly IConfiguration _configuration;
 
-        public UsersController(IUserRepository userRepository, IConfiguration configuration)
+        public UsersController(IUserRepository userRepository, ICartRepository cartRepository, IConfiguration configuration)
         {
-            _userRepository = userRepository;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));  // Assign cart repository
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
@@ -97,6 +100,7 @@ namespace MovieStore_API.Controllers
         public async Task<ActionResult<User>> PostUser(User user)
         {
             var (usernameExists, emailExists) = await _userRepository.CheckIfExistsAsync(user.Username, user.Email);
+
             if (usernameExists)
             {
                 return Conflict(new { message = "Username is already taken." });
@@ -108,13 +112,26 @@ namespace MovieStore_API.Controllers
             }
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
             await _userRepository.AddUserAsync(user);
+
+            var cart = new Cart
+            {
+                UserId = user.UserId
+            };
+
+            await _cartRepository.AddCartAsync(cart);
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
+        [AllowAnonymous]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
+            // First, delete the user's cart
+            await _cartRepository.DeleteCartByUserIdAsync(id); // Ensure this method exists in your ICartRepository
+
+            // Now, delete the user
             var deleted = await _userRepository.DeleteUserAsync(id);
             if (!deleted)
             {

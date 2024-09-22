@@ -10,6 +10,7 @@ import { OrdersProvider } from './context/OrdersContext';
 
 // Common
 import NavBar from './components/common/NavBar';
+import Footer from './components/common/Footer';
 
 // Routes
 import AuthenticatedRoute from './routes/AuthenticatedRoute';
@@ -50,6 +51,7 @@ function App() {
                   <Route component={NotFoundPage} />
                 </Switch>
               </Router>
+              <Footer />
             </OrdersProvider>
           </MoviesProvider>
         </CartItemsProvider>
