@@ -10,5 +10,6 @@ namespace MovieStore_API.Repositories.OrderRepo
         Task UpdateOrderAsync(Order order);
         Task DeleteOrderAsync(int id);
         Task<bool> OrderExistsAsync(int id);
+        Task<Order> GetLastOrderAsync();
     }
 }
