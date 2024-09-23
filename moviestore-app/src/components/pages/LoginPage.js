@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
+import CartItemsContext from '../../context/CartItemsContext';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import RegisterUser from '../user/RegisterUser';
@@ -12,11 +13,13 @@ function LoginPage() {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const history = useHistory();
   const { login, isLoading } = useContext(AuthContext);
+  const { refreshCartItems } = useContext(CartItemsContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await login(email, password);
+      await refreshCartItems();
       history.push('/profile');
     } catch (error) {
       setNotification({ message: 'Login failed. Please check your credentials.', type: 'danger' });
