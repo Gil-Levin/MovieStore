@@ -49,5 +49,10 @@ namespace MovieStore_API.Repositories.OrderRepo
         {
             return await _context.Orders.AnyAsync(o => o.OrderId == id);
         }
+
+        public async Task<Order?> GetLastOrderAsync()
+        {
+            return await _context.Orders.OrderByDescending(o => o.OrderId).FirstOrDefaultAsync();
+        }
     }
 }

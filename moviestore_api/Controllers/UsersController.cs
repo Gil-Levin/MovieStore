@@ -4,12 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Models;
 using MovieStore_API.Repositories;
 using MovieStore_API.Repositories.CartsRepo;
+using MovieStore_API.Repositories.OrderRepo;
 using MovieStore_API.Repositories.UserRepo;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MovieStore_API.Controllers
 {
@@ -19,13 +16,15 @@ namespace MovieStore_API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        private readonly ICartRepository _cartRepository;  // Added cart repository
+        private readonly ICartRepository _cartRepository;  
+        private readonly IOrderRepository _orderRepository;
         private readonly IConfiguration _configuration;
 
-        public UsersController(IUserRepository userRepository, ICartRepository cartRepository, IConfiguration configuration)
+        public UsersController(IUserRepository userRepository, ICartRepository cartRepository, IConfiguration configuration,IOrderRepository orderRepository)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));  // Assign cart repository
+            _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(configuration));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
@@ -113,16 +112,33 @@ namespace MovieStore_API.Controllers
                 return Conflict(new { message = "Email is already in use." });
             }
 
-            user.Password = LoginController.HashPassword(user.Password);
+            var lastOrder = await _orderRepository.GetLastOrderAsync();
+            int nextOrderId = (lastOrder?.OrderId ?? 0) + 1;
 
+            user.Password = LoginController.HashPassword(user.Password);
+            if (nextOrderId < user.UserId)
+            {
+                nextOrderId = user.UserId;
+            }
             await _userRepository.AddUserAsync(user);
 
             var cart = new Cart
             {
-                UserId = user.UserId
+                CartId = nextOrderId,
+                UserId = nextOrderId
             };
 
             await _cartRepository.AddCartAsync(cart);
+
+            var order = new Order
+            {
+                OrderId = nextOrderId,    
+                UserId = nextOrderId,
+                OrderDate = DateTime.Now  
+            };
+
+            await _orderRepository.AddOrderAsync(order);
+
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
