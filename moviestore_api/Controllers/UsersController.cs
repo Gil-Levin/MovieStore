@@ -7,6 +7,8 @@ using MovieStore_API.Repositories.CartsRepo;
 using MovieStore_API.Repositories.UserRepo;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MovieStore_API.Controllers
@@ -111,7 +113,7 @@ namespace MovieStore_API.Controllers
                 return Conflict(new { message = "Email is already in use." });
             }
 
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Password = LoginController.HashPassword(user.Password);
 
             await _userRepository.AddUserAsync(user);
 
@@ -124,14 +126,11 @@ namespace MovieStore_API.Controllers
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);
         }
 
-        [AllowAnonymous]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            // First, delete the user's cart
-            await _cartRepository.DeleteCartByUserIdAsync(id); // Ensure this method exists in your ICartRepository
+            await _cartRepository.DeleteCartByUserIdAsync(id);
 
-            // Now, delete the user
             var deleted = await _userRepository.DeleteUserAsync(id);
             if (!deleted)
             {
@@ -173,5 +172,6 @@ namespace MovieStore_API.Controllers
             var (usernameExists, emailExists) = await _userRepository.CheckIfExistsAsync(username, email);
             return Ok(new { usernameExists, emailExists });
         }
+
     }
 }

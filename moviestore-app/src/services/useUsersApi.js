@@ -29,10 +29,11 @@ export const useUsersApi = () => {
     }
   };
 
-  const addUser = async (user) => {
+  const addUser = async (user, isRegister = false) => {
     try {
-      await axios.post(API_URL, user, { headers: headers() });
-      refreshUsers();
+      const requestHeaders = isRegister ? { 'Content-Type': 'application/json' } : headers();
+      await axios.post(API_URL, user, { headers: requestHeaders });
+      if (!isRegister) refreshUsers();
     } catch (error) {
       console.error('Failed to add user:', error);
     }

@@ -30,7 +30,7 @@ const RegisterUser = ({ show, handleClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await addUser(userDetails);
+            await addUser(userDetails,true);
             handleClose();
             console.log('User added successfully');
         } catch (error) {
