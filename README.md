@@ -26,6 +26,8 @@
 
     -   [Step 4: Frontend Configuration](#step-4-frontend-configuration)
 
+-   [Potential Bug](#potential-bug)
+
 -   [API Endpoints](#api-endpoints)
 
 -   [Authors](#authors)
@@ -188,9 +190,16 @@ Prepare the frontend application in CMD:
 
         - email: `admin1234@gmail.com`
 
-        - Password: Secretword0
+        - Password: `Secretword0`
 
     - Alternatively, you can register as a new user on the registration page.
+
+## Potential Bug
+
+After configuring the frontend and backend, sometimes when running `npm start`, you might encounter errors saying it can't find a file named /AuthContext.
+In that case, under the moviestore-app folder => src => context => Rename `authContext` to `AuthContext`.
+
+This happens for an unknown reason as far as I can tell.
 
 ## API Endpoints
 
