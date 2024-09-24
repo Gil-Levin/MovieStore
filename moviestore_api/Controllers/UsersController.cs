@@ -116,10 +116,16 @@ namespace MovieStore_API.Controllers
             int nextOrderId = (lastOrder?.OrderId ?? 0) + 1;
 
             user.Password = LoginController.HashPassword(user.Password);
+
             if (nextOrderId < user.UserId)
             {
                 nextOrderId = user.UserId;
             }
+            else
+            {
+                user.UserId = nextOrderId;
+            }
+
             await _userRepository.AddUserAsync(user);
 
             var cart = new Cart
