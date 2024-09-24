@@ -1,4 +1,5 @@
-﻿using MovieStore_API.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieStore_API.Models;
 
 namespace MovieStore_API.Repositories.ItemsRepo
 {
@@ -12,5 +13,6 @@ namespace MovieStore_API.Repositories.ItemsRepo
         Task<bool> ItemExistsAsync(int id);
         Task RemoveProductFromItemsAsync(int productId);
         Task<Item> GetItemByProductIdAndCartIdAsync(int productId, int cartId);
+        Task DeleteItemsByCartIdAsync(int cartId);
     }
 }

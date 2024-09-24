@@ -47,7 +47,7 @@ namespace MovieStore_api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Username = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "varchar(999)", maxLength: 999, nullable: false)
+                    Password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -94,7 +94,6 @@ namespace MovieStore_api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.UniqueConstraint("AK_Orders_UserId", x => x.UserId);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
@@ -152,7 +151,7 @@ namespace MovieStore_api.Migrations
                         name: "FK_Items_Orders_CartId",
                         column: x => x.CartId,
                         principalTable: "Orders",
-                        principalColumn: "UserId",
+                        principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Items_Products_ProductID",
@@ -329,6 +328,11 @@ namespace MovieStore_api.Migrations
                 name: "IX_OrderProduct_ProductsProductId",
                 table: "OrderProduct",
                 column: "ProductsProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
         }
 
         /// <inheritdoc />

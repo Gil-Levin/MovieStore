@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Container, Table, Row, Col } from 'react-bootstrap';
 import { FaSortUp, FaSortDown, FaSort } from 'react-icons/fa';
@@ -10,8 +10,13 @@ import AddUser from './AddUser';
 
 const UsersTable = () => {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
-    const { users, isLoading } = useContext(UsersContext);
+    const { users, isLoading, refreshUsers } = useContext(UsersContext);
     const [showModal, setShowModal] = useState(false);
+    const history = useHistory();
+
+    useEffect(() => {
+        refreshUsers();
+    }, [refreshUsers]);
 
     const sortUsers = (key) => {
         let direction = 'ascending';
@@ -29,7 +34,6 @@ const UsersTable = () => {
     };
 
     const sortedUsers = sortItems(users, sortConfig);
-    const history = useHistory();
 
     return (
         <>

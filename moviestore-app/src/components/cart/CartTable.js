@@ -7,6 +7,7 @@ import Loading from '../common/Loading';
 import { useCartItemsApi } from '../../services/useCartItemsApi';
 import { sortItems } from '../../utils/sortItems';
 import QuantityChangeModal from './QuantityChangeModal';
+import PurchaseButton from './PurchaseButton';
 
 const CartTable = () => {
     const [sortConfig, setSortConfig] = React.useState({ key: null, direction: 'ascending' });
@@ -37,7 +38,6 @@ const CartTable = () => {
     };
 
     const handleChangeQuantity = (item) => {
-        console.log(item);
         setSelectedItem(item);
         setModalShow(true);
     };
@@ -56,58 +56,66 @@ const CartTable = () => {
                     </Button>
                 </Alert>
             ) : (
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th onClick={() => sortCart('productName')}>
-                                Name {getSortIcon('productName')}
-                            </th>
-                            <th onClick={() => sortCart('productPrice')}>
-                                Price {getSortIcon('productPrice')}
-                            </th>
-                            <th onClick={() => sortCart('quantity')}>
-                                Quantity {getSortIcon('quantity')}
-                            </th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortedCartItems.map((item) => (
-                            <tr key={item.itemID}>
-                                <td>
-                                    <img
-                                        src={item.productImage}
-                                        alt={item.productName}
-                                        style={{ width: '50px', height: '75px' }}
-                                    />
-                                </td>
-                                <td>{item.productName}</td>
-                                <td>${item.productPrice.toFixed(2)}</td>
-                                <td>
-                                    <Button variant="secondary" onClick={() => handleChangeQuantity(item)}>
-                                        {item.quantity} <FaEdit style={{ marginLeft: '8px' }} />
-                                    </Button>
-                                </td>
-                                <td>
-                                    <Button
-                                        variant="warning"
-                                        className="me-2"
-                                        onClick={() => history.push(`/movies/${item.productID}`)}
-                                    >
-                                        <FaEye style={{ marginRight: '5px' }} /> View
-                                    </Button>
-                                    <Button
-                                        variant="danger"
-                                        onClick={() => handleDelete(item.itemID)}
-                                    >
-                                        <FaTrash style={{ marginRight: '5px' }} /> Delete
-                                    </Button>
-                                </td>
+                <>
+                    <PurchaseButton />
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th onClick={() => sortCart('productName')}>
+                                    Name {getSortIcon('productName')}
+                                </th>
+                                <th onClick={() => sortCart('productPrice')}>
+                                    Price {getSortIcon('productPrice')}
+                                </th>
+                                <th onClick={() => sortCart('quantity')}>
+                                    Quantity {getSortIcon('quantity')}
+                                </th>
+                                <th>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                        </thead>
+                        <tbody>
+                            {sortedCartItems.map((item) => (
+                                <tr key={item.itemID}>
+                                    <td>
+                                        <img
+                                            src={item.productImage}
+                                            alt={item.productName}
+                                            style={{ width: '50px', height: '75px' }}
+                                        />
+                                    </td>
+                                    <td>{item.productName}</td>
+                                        <td>
+                                            {item.quantity > 1 
+                                                ? `$${(item.productPrice * item.quantity).toFixed(2)} ($${item.productPrice.toFixed(2)})`
+                                                : `$${item.productPrice.toFixed(2)}`
+                                            }
+                                        </td>
+                                    <td>
+                                        <Button variant="secondary" onClick={() => handleChangeQuantity(item)}>
+                                            {item.quantity} <FaEdit style={{ marginLeft: '8px' }} />
+                                        </Button>
+                                    </td>
+                                    <td>
+                                        <Button
+                                            variant="warning"
+                                            className="me-2"
+                                            onClick={() => history.push(`/movies/${item.productID}`)}
+                                        >
+                                            <FaEye style={{ marginRight: '5px' }} /> View
+                                        </Button>
+                                        <Button
+                                            variant="danger"
+                                            onClick={() => handleDelete(item.itemID)}
+                                        >
+                                            <FaTrash style={{ marginRight: '5px' }} /> Delete
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </>
             )}
             <QuantityChangeModal
                 show={modalShow}

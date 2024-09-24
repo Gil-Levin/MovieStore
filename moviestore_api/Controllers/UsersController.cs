@@ -16,11 +16,11 @@ namespace MovieStore_API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        private readonly ICartRepository _cartRepository;  
+        private readonly ICartRepository _cartRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IConfiguration _configuration;
 
-        public UsersController(IUserRepository userRepository, ICartRepository cartRepository, IConfiguration configuration,IOrderRepository orderRepository)
+        public UsersController(IUserRepository userRepository, ICartRepository cartRepository, IConfiguration configuration, IOrderRepository orderRepository)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));  // Assign cart repository
@@ -98,9 +98,9 @@ namespace MovieStore_API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(UserDto userDto)
         {
-            var (usernameExists, emailExists) = await _userRepository.CheckIfExistsAsync(user.Username, user.Email);
+            var (usernameExists, emailExists) = await _userRepository.CheckIfExistsAsync(userDto.Username, userDto.Email);
 
             if (usernameExists)
             {
@@ -115,34 +115,39 @@ namespace MovieStore_API.Controllers
             var lastOrder = await _orderRepository.GetLastOrderAsync();
             int nextOrderId = (lastOrder?.OrderId ?? 0) + 1;
 
-            user.Password = LoginController.HashPassword(user.Password);
+            if (nextOrderId < userDto.UserId)
+            {
+                nextOrderId = userDto.UserId;
+            }
 
-            if (nextOrderId < user.UserId)
+            // Hash the password before saving
+            var user = new User
             {
-                nextOrderId = user.UserId;
-            }
-            else
-            {
-                user.UserId = nextOrderId;
-            }
+                UserId = nextOrderId, // Use nextOrderId for UserId or you can set it to auto-generated
+                Username = userDto.Username,
+                Password = LoginController.HashPassword(userDto.Password),
+                Email = userDto.Email,
+                ProfilePicture = userDto.ProfilePicture,
+                UserType = userDto.UserType
+            };
 
             await _userRepository.AddUserAsync(user);
 
+            // Create and add Cart
             var cart = new Cart
             {
                 CartId = nextOrderId,
-                UserId = nextOrderId
+                UserId = user.UserId
             };
-
             await _cartRepository.AddCartAsync(cart);
 
+            // Create and add Order
             var order = new Order
             {
-                OrderId = nextOrderId,    
-                UserId = nextOrderId,
-                OrderDate = DateTime.Now  
+                OrderId = nextOrderId,
+                UserId = user.UserId,
+                OrderDate = DateTime.Now
             };
-
             await _orderRepository.AddOrderAsync(order);
 
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);

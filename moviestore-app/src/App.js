@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 // Context
 import { AuthProvider } from './context/AuthContext';
@@ -29,34 +30,38 @@ import UserPage from './components/pages/UserPage';
 
 function App() {
   return (
-    <AuthProvider>
-      <UsersProvider>
-        <CartItemsProvider>
-          <MoviesProvider>
-            <OrdersProvider>
-              <Router>
-                <NavBar />
-                <Switch>
-                  <Route path="/" exact component={HomePage} />
-                  <Route path="/login" exact component={LoginPage} />
-                  <Route path="/about" exact component={AboutPage} />
+    <div className="d-flex flex-column min-vh-100">
+      <AuthProvider>
+        <UsersProvider>
+          <CartItemsProvider>
+            <MoviesProvider>
+              <OrdersProvider>
+                <Router>
+                  <NavBar />
+                  <Container className="flex-grow-1">
+                    <Switch>
+                      <Route path="/" exact component={HomePage} />
+                      <Route path="/login" exact component={LoginPage} />
+                      <Route path="/about" exact component={AboutPage} />
 
-                  <AuthenticatedRoute path="/movies" exact component={MoviesPage} />
-                  <AuthenticatedRoute path="/movies/:productId" exact component={MoviePage} />
-                  <AuthenticatedRoute path="/profile" exact component={ProfilePage} />
+                      <AuthenticatedRoute path="/movies" exact component={MoviesPage} />
+                      <AuthenticatedRoute path="/movies/:productId" exact component={MoviePage} />
+                      <AuthenticatedRoute path="/profile" exact component={ProfilePage} />
 
-                  <AuthorizedRoute path="/manage" component={ManagePage} />
-                  <AuthorizedRoute path="/users/:userId" component={UserPage} />
+                      <AuthorizedRoute path="/manage" component={ManagePage} />
+                      <AuthorizedRoute path="/users/:userId" component={UserPage} />
 
-                  <Route component={NotFoundPage} />
-                </Switch>
-              </Router>
-              <Footer />
-            </OrdersProvider>
-          </MoviesProvider>
-        </CartItemsProvider>
-      </UsersProvider>
-    </AuthProvider>
+                      <Route component={NotFoundPage} />
+                    </Switch>
+                  </Container>
+                  <Footer />
+                </Router>
+              </OrdersProvider>
+            </MoviesProvider>
+          </CartItemsProvider>
+        </UsersProvider>
+      </AuthProvider>
+    </div>
   );
 }
 

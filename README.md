@@ -26,7 +26,7 @@
 
     -   [Step 4: Frontend Configuration](#step-4-frontend-configuration)
 
--   [Potential Bug](#potential-bug)
+-   [Potential Bugs](#potential-bugs)
 
 -   [API Endpoints](#api-endpoints)
 
@@ -194,10 +194,15 @@ Prepare the frontend application in CMD:
 
     - Alternatively, you can register as a new user on the registration page.
 
-## Potential Bug
+## Potential Bugs
 
 After configuring the frontend and backend, sometimes when running `npm start`, you might encounter errors saying it can't find a file named /AuthContext.
 In that case, under the moviestore-app folder => src => context => Rename `authContext` to `AuthContext`.
+
+This happens for an unknown reason as far as I can tell.
+
+When logging in at first with an admin, in the Manage page => Users it might not show all of the users.
+In that case, log out and log back in.
 
 This happens for an unknown reason as far as I can tell.
 

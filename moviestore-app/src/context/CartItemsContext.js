@@ -33,8 +33,6 @@ export const CartItemsProvider = ({ children }) => {
     fetchCartItems();
   }, [fetchCartItems]);
 
-  console.log(cartItems);
-
   return (
     <CartItemsContext.Provider value={{ cartItems, setCartItems, isLoading, refreshCartItems: fetchCartItems }}>
       {children}

@@ -23,10 +23,6 @@ const MoviePage = () => {
   const [editedMovie, setEditedMovie] = useState({});
   const [imagePreview, setImagePreview] = useState(null);
 
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertVariant, setAlertVariant] = useState('success');
-
   useEffect(() => {
     const selectedMovie = movies.find(m => m.productId === parseInt(productId));
     if (selectedMovie) {
@@ -88,28 +84,6 @@ const MoviePage = () => {
     }
   };
 
-  const handleAddMovieToCart = async () => {
-    try {
-      await handleAddToCart(movie.productId);
-      setAlertMessage(`${movie.name} has been added to your cart!`);
-      setAlertVariant('success');
-      setShowAlert(true);
-
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 3000);
-    } catch (error) {
-      console.error('Error adding movie to cart:', error);
-      setAlertMessage('Failed to add the movie to your cart.');
-      setAlertVariant('danger');
-      setShowAlert(true);
-
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 3000);
-    }
-  };
-
   return (
     <Container className="movie-page">
       <Row className="py-4 movie-page-row">
@@ -128,7 +102,6 @@ const MoviePage = () => {
           ) : (
             <MovieDetails
               movie={movie}
-              handleAddToCart={handleAddMovieToCart}
               setIsEditing={setIsEditing}
               setShowModal={setShowModal}
             />
@@ -142,16 +115,6 @@ const MoviePage = () => {
           />
         </Col>
       </Row>
-      {showAlert && (
-        <Alert
-          variant={alertVariant}
-          className="custom-alert"
-          onClose={() => setShowAlert(false)}
-          dismissible
-        >
-          {alertMessage}
-        </Alert>
-      )}
     </Container>
   );
 };

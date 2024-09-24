@@ -22,7 +22,6 @@ const AddOrder = ({ show, handleClose }) => {
             };
             await addOrder(orderToSubmit);
             handleClose();
-            console.log('Order added successfully');
         } catch (error) {
             console.error('Error adding order:', error);
         }

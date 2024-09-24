@@ -32,7 +32,6 @@ const AddMovie = ({ show, handleClose }) => {
         try {
             await addMovie(movieDetails);
             handleClose();
-            console.log('Movie added successfully');
         } catch (error) {
             console.error('Error adding movie:', error);
         }

@@ -32,7 +32,6 @@ const RegisterUser = ({ show, handleClose }) => {
         try {
             await addUser(userDetails,true);
             handleClose();
-            console.log('User added successfully');
         } catch (error) {
             console.error('Error adding user:', error);
         }

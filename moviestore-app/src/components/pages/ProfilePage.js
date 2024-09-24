@@ -3,6 +3,7 @@ import { Container, Row, Col, Alert } from 'react-bootstrap';
 import Loading from "../common/Loading";
 import UserCard from '../user/UserCard';
 import CartTable from '../cart/CartTable';
+import UserOrders from '../user/UserOrders';
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -16,13 +17,12 @@ const ProfilePage = () => {
         } else {
             setError(true);
         }
-        setLoading(false); // Loading ends after checking the user data
+        setLoading(false);
     }, []);
 
     document.title = "Movie Store - Profile";
 
     if (loading) return <Loading />;
-
     if (error) {
         return (
             <Container className="mt-5">
@@ -36,18 +36,14 @@ const ProfilePage = () => {
             </Container>
         );
     }
-
     return (
         <Container className="mt-5">
             <Row className="justify-content-center">
-                <Col md={8} lg={6}>
-                    <UserCard user={user} />
+                <Col xs={12} sm={12} md={5} lg={5} xl={4} xxl={3}>
+                    <UserCard />
+                    <UserOrders />
                 </Col>
-            </Row>
-
-            <Row className="mt-5">
-                <Col>
-                    <h4>Cart Items</h4>
+                <Col xs={12} sm={12} md={7} lg={7} xl={8} xxl={9}>
                     <CartTable />
                 </Col>
             </Row>

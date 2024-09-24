@@ -242,9 +242,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "order",
-        "Type": "MovieStore_API.Models.Order",
-        "IsRequired": true
+        "Name": "cartId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -460,8 +460,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "MovieStore_API.Models.User",
+        "Name": "userDto",
+        "Type": "MovieStore_API.Models.UserDto",
         "IsRequired": true
       }
     ],

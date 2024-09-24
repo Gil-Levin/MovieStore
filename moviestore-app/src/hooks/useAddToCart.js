@@ -20,7 +20,6 @@ export const useAddToCart = () => {
 
     try {
       await addItem(cartItem);
-      console.log('Item added to cart successfully');
     } catch (error) {
       console.error('Error adding item to cart:', error);
     }

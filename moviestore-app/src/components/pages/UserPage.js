@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 
 // React Bootstrap imports
 import { Container, Row, Col, Image, Button, Alert, Form } from 'react-bootstrap';
+import { FaEdit, FaTrashAlt, FaArrowLeft } from 'react-icons/fa';
 
 // Internal imports
 import UsersContext from '../../context/UsersContext';
@@ -84,12 +85,10 @@ const UserPage = () => {
 
     const handleSave = async () => {
         try {
-            // *** *** FIX IN THE BACKEND TO USE USER DTO WITHOUT PASSWORD *** ***
             const userToUpdate = {
                 ...editedUser,
                 password: editedUser.password || user.password
             };
-            console.log(userToUpdate);
             await updateUser(userToUpdate);
             setIsEditing(false);
         } catch (error) {
@@ -112,7 +111,6 @@ const UserPage = () => {
         try {
             await deleteUser(user.userId);
             history.goBack();
-            console.log('User deleted successfully');
         } catch (error) {
             console.error('Error deleting user:', error);
         } finally {
@@ -185,9 +183,12 @@ const UserPage = () => {
                             <hr />
                             <div className="button-group">
                                 <Button variant="primary" className="me-2" onClick={() => setIsEditing(true)}>
-                                    Edit
+                                <FaEdit className="me-1" /> Edit
                                 </Button>
-                                <Button variant="danger" onClick={() => setShowModal(true)}>Delete</Button>
+                                <Button variant="danger" onClick={() => setShowModal(true)}><FaTrashAlt className="me-1" /> Delete</Button>
+                                <Button variant="secondary" onClick={() => history.goBack()} className="float-end">
+                                    <FaArrowLeft className="me-1" /> Back
+                                </Button>
                                 <ConfirmationModal
                                     show={showModal}
                                     setShow={setShowModal}
@@ -195,6 +196,8 @@ const UserPage = () => {
                                     title="Deleting a User"
                                     bodyText={`Are you sure you want to delete ${username} from the database?`}
                                 />
+                            </div>
+                            <div>
                             </div>
                         </>
                     )}

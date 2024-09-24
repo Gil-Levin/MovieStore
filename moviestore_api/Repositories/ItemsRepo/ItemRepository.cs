@@ -65,5 +65,12 @@ namespace MovieStore_api.Repositories.ItemsRepo
             return await _context.Items
                 .FirstOrDefaultAsync(i => i.ProductID == productId && i.CartId == cartId);
         }
+        public async Task DeleteItemsByCartIdAsync(int cartId)
+        {
+            var items = await _context.Items.Where(i => i.CartId == cartId).ToListAsync();
+            _context.Items.RemoveRange(items);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

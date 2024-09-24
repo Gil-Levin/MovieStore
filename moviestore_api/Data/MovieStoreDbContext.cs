@@ -52,9 +52,9 @@ namespace MovieStore_API.Data
                 entity.Property(e => e.UserType);
 
                 entity.HasMany(e => e.Orders)
-                    .WithOne(o => o.User)
-                    .HasForeignKey(o => o.UserId)
-                    .OnDelete(DeleteBehavior.Cascade); 
+                      .WithOne(o => o.User)
+                      .HasForeignKey(o => o.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(u => u.Cart)
                       .WithOne(c => c.User)
@@ -121,23 +121,28 @@ namespace MovieStore_API.Data
                 entity.ToTable("Orders");
                 entity.HasKey(e => e.OrderId);
 
-                entity.Property(e => e.OrderId).IsRequired().ValueGeneratedOnAdd();
-                entity.Property(e => e.UserId).IsRequired();
-                entity.Property(e => e.OrderDate).IsRequired();
+                entity.Property(e => e.OrderId)
+                    .IsRequired()
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.UserId)
+                    .IsRequired();
+
+                entity.Property(e => e.OrderDate)
+                    .IsRequired();
 
                 entity.HasOne(e => e.User)
-                      .WithMany(u => u.Orders)
-                      .HasForeignKey(e => e.UserId)
-                      .OnDelete(DeleteBehavior.Cascade);
+                    .WithMany(u => u.Orders)
+                    .HasForeignKey(e => e.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasMany(e => e.Products)
-                      .WithMany(p => p.Orders)
-                      .UsingEntity(j => j.ToTable("OrderProduct"));
+                    .WithMany(p => p.Orders)
+                    .UsingEntity(j => j.ToTable("OrderProduct"));
 
                 entity.HasMany(o => o.Items)
-                      .WithOne(i => i.Order) 
-                      .HasForeignKey(i => i.CartId)
-                      .HasPrincipalKey(o => o.UserId);
+                    .WithOne(i => i.Order)
+                    .HasForeignKey(i => i.CartId);
             });
 
             modelBuilder.Entity<User>().HasData(

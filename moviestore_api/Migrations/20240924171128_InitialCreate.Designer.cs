@@ -11,7 +11,7 @@ using MovieStore_API.Data;
 namespace MovieStore_api.Migrations
 {
     [DbContext(typeof(MovieStoreDbContext))]
-    [Migration("20240922200533_InitialCreate")]
+    [Migration("20240924171128_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -285,6 +285,8 @@ namespace MovieStore_api.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders", (string)null);
 
@@ -678,8 +680,7 @@ namespace MovieStore_api.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(999)
-                        .HasColumnType("varchar(999)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("longtext");
@@ -840,7 +841,6 @@ namespace MovieStore_api.Migrations
                     b.HasOne("MovieStore_API.Models.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("CartId")
-                        .HasPrincipalKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -895,7 +895,8 @@ namespace MovieStore_api.Migrations
 
             modelBuilder.Entity("MovieStore_API.Models.User", b =>
                 {
-                    b.Navigation("Cart");
+                    b.Navigation("Cart")
+                        .IsRequired();
 
                     b.Navigation("Orders");
                 });

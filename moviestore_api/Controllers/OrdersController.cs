@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MovieStore_API.Repositories.OrderRepo;
+using MovieStore_API.Repositories.ItemsRepo;
 
 namespace MovieStore_API.Controllers
 {
@@ -16,11 +17,13 @@ namespace MovieStore_API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IItemRepository _itemRepository;
         private readonly ILogger<OrdersController> _logger;
 
-        public OrdersController(IOrderRepository orderRepository, ILogger<OrdersController> logger)
+        public OrdersController(IOrderRepository orderRepository, IItemRepository itemRepository, ILogger<OrdersController> logger)
         {
             _orderRepository = orderRepository;
+            _itemRepository = itemRepository;
             _logger = logger;
         }
 
@@ -86,13 +89,24 @@ namespace MovieStore_API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Order>> PostOrder(int cartId)
         {
+            // Clear items from the repository that match the CartId
+            await _itemRepository.DeleteItemsByCartIdAsync(cartId); // Ensure this method exists in your item repository.
+
+            // Create a new order
+            var order = new Order
+            {
+                UserId = cartId,        // Assign CartId to UserId
+                OrderDate = DateTime.UtcNow // Assign current date
+            };
+
             await _orderRepository.AddOrderAsync(order);
             _logger.LogInformation($"Order with ID {order.OrderId} created successfully.");
 
             return CreatedAtAction(nameof(GetOrder), new { id = order.OrderId }, order);
         }
+
 
         [AllowAnonymous]
         [HttpDelete("{id}")]

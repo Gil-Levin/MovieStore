@@ -16,7 +16,6 @@ db.connect((err) => {
   if (err) {
     throw err;
   }
-  console.log('MySQL connected...');
 });
 
 app.get('/api/images', (req, res) => {
@@ -32,5 +31,4 @@ app.get('/api/images', (req, res) => {
 
 const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });
