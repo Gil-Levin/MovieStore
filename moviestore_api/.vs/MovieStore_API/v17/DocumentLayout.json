@@ -127,11 +127,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAcwHcAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-24T18:08:15.405Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -143,8 +156,7 @@
               "RelativeToolTip": "Models\\Product.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-24T18:01:31.397Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-24T18:01:31.397Z"
             },
             {
               "$type": "Document",
@@ -156,8 +168,7 @@
               "RelativeToolTip": "Repositories\\UsersRepo\\IUserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-24T17:37:51.669Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-24T17:37:51.669Z"
             },
             {
               "$type": "Document",
@@ -169,8 +180,7 @@
               "RelativeToolTip": "Repositories\\UsersRepo\\UserRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwBwAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-24T17:36:57.631Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-24T17:36:57.631Z"
             },
             {
               "$type": "Document",
@@ -182,8 +192,7 @@
               "RelativeToolTip": "DTOs\\UserDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-24T17:35:48.727Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-24T17:35:48.727Z"
             },
             {
               "$type": "Document",
@@ -195,8 +204,7 @@
               "RelativeToolTip": "Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-24T17:26:14.825Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-24T17:26:14.825Z"
             },
             {
               "$type": "Document",
@@ -269,19 +277,6 @@
               "ViewState": "AQIAADkAAAAAAAAAAIA8wE8AAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-21T14:49:39.22Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\MovieStore\\MovieStore\\moviestore_api\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Controllers\\UsersController.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAcwHoAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-21T14:49:39.215Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",

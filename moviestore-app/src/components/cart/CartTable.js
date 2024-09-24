@@ -44,6 +44,11 @@ const CartTable = () => {
 
     const sortedCartItems = sortItems(cartItems, sortConfig);
 
+    const totalPrice = sortedCartItems.reduce(
+        (total, item) => total + item.productPrice * item.quantity,
+        0
+    );
+
     if (cartLoading) return <Loading />;
 
     return (
@@ -57,7 +62,6 @@ const CartTable = () => {
                 </Alert>
             ) : (
                 <>
-                    <PurchaseButton />
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -85,12 +89,12 @@ const CartTable = () => {
                                         />
                                     </td>
                                     <td>{item.productName}</td>
-                                        <td>
-                                            {item.quantity > 1 
-                                                ? `$${(item.productPrice * item.quantity).toFixed(2)} ($${item.productPrice.toFixed(2)})`
-                                                : `$${item.productPrice.toFixed(2)}`
+                                    <td>
+                                        {item.quantity > 1
+                                            ? `$${(item.productPrice * item.quantity).toFixed(2)} ($${item.productPrice.toFixed(2)})`
+                                            : `$${item.productPrice.toFixed(2)}`
                                             }
-                                        </td>
+                                    </td>
                                     <td>
                                         <Button variant="secondary" onClick={() => handleChangeQuantity(item)}>
                                             {item.quantity} <FaEdit style={{ marginLeft: '8px' }} />
@@ -105,9 +109,9 @@ const CartTable = () => {
                                             <FaEye style={{ marginRight: '5px' }} /> View
                                         </Button>
                                         <Button
-                                            variant="danger"
-                                            onClick={() => handleDelete(item.itemID)}
-                                        >
+                                         variant="danger"
+                                          onClick={() => handleDelete(item.itemID)}
+                                          >
                                             <FaTrash style={{ marginRight: '5px' }} /> Delete
                                         </Button>
                                     </td>
@@ -115,6 +119,10 @@ const CartTable = () => {
                             ))}
                         </tbody>
                     </Table>
+                    <div className="d-flex justify-content-between align-items-center mt-3">
+                        <h4>Total Price: ${totalPrice.toFixed(2)}</h4>
+                        <PurchaseButton />
+                    </div>
                 </>
             )}
             <QuantityChangeModal
