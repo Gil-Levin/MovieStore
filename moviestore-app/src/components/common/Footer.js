@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FaLinkedin, FaGithub, FaCode } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
 
 const logoPath = process.env.PUBLIC_URL + '/favicon/android-chrome-192x192.png';
 
 function Footer() {
     const history = useHistory();
-
+    const { isAuthenticated, isAuthorized } = useContext(AuthContext);
+    const footerNavigationItems = isAuthorized? ['/', '/movies', '/about', '/profile', '/manage']: isAuthenticated ? ['/', '/movies', '/about', '/profile']: ['/', '/movies', '/about'];
+    
     // Function to navigate to a specific route
     const navigateTo = (path) => {
         history.push(path);
     };
-
+    
     return (
         <footer className="bg-dark text-light py-4 mt-auto">
             <Container>
@@ -33,7 +36,7 @@ function Footer() {
 
                 {/* Navigation Buttons */}
                 <Row className="justify-content-center mb-3">
-                    {['/', '/movies', '/about', '/profile', '/manage'].map((path, index) => (
+                    {footerNavigationItems.map((path, index) => (
                         <Col key={index} xs="auto">
                             <Button variant="outline-light" onClick={() => navigateTo(path)}>
                                 {path === '/' ? 'Home' : path.charAt(1).toUpperCase() + path.slice(2)}
